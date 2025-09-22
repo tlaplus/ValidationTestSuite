@@ -1,2 +1,5 @@
 tools/1.7.2/tla2tools.jar filter=lfs diff=lfs merge=lfs -text
 tools/apalache-0.28.0.jar filter=lfs diff=lfs merge=lfs -text
+tools/jacoco/jacocoagent.jar filter=lfs diff=lfs merge=lfs -text
+tools/jacoco/jacocoant.jar filter=lfs diff=lfs merge=lfs -text
+tools/jacoco/jacococli.jar filter=lfs diff=lfs merge=lfs -text
