@@ -17,9 +17,9 @@ import asyncio
 import platform
 from .testcasedefs import *
 
-def prepare_command(program, *args):
+def prepare_command(program, *args, max_concurrent_tasks=1):
     cmd = []
-    if platform.system() == "Linux":
+    if platform.system() == "Linux" and max_concurrent_tasks > 1:
         cmd = 'bwrap --bind / / --ro-bind /usr /usr --proc /proc --dev /dev --tmpfs /tmp'.split(' ')
 
     cmd.append(program)
@@ -32,8 +32,8 @@ def collect_args(args):
     return ' '.join(args_quoted)
 
 # Run process under normal conditions
-async def run_process(program, *args, env = None):
-    cmd = prepare_command(program, *args)
+async def run_process(program, *args, env = None, max_concurrent_tasks=1):
+    cmd = prepare_command(program, *args, max_concurrent_tasks=max_concurrent_tasks)
     exec_desc = collect_args(args)
     process = await asyncio.create_subprocess_exec(
         *cmd,
@@ -46,10 +46,10 @@ async def run_process(program, *args, env = None):
     return (exec_desc, process.returncode, output)
 
 # Run process under specified anomalous conditions
-async def run_process_anomalous(anomalous, program, *args, env = None):
+async def run_process_anomalous(anomalous, program, *args, env = None, max_concurrent_tasks=1):
     assert platform.system() != "Windows", "Not supported on Windows"
 
-    cmd = prepare_command(program, *args)
+    cmd = prepare_command(program, *args, max_concurrent_tasks=max_concurrent_tasks)
 
     if anomalous['tag'] == AnomalousCondition.OutOfMemory.value:
         memory = anomalous['memory']

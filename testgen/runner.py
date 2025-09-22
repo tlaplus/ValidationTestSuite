@@ -147,16 +147,16 @@ def tlc_args(spec_dir, exec_dir, desc, coverage):
         os.path.join(spec_dir, desc['main_module']) + '.tla'
     ]
 
-async def run_tlc_internal(spec_dir, exec_dir, desc, coverage, is_anomalous):
+async def run_tlc_internal(spec_dir, exec_dir, desc, coverage, is_anomalous, max_concurrent_tasks=1):
     env = os.environ.copy()
     env['TMPDIR'] = mk_tmp(desc)
 
     args = tlc_args(spec_dir, exec_dir, desc, coverage)
 
     if not is_anomalous:
-        result = await run_process(*args, env = env)
+        result = await run_process(*args, env = env, max_concurrent_tasks=max_concurrent_tasks)
     else:
-        result = await run_process_anomalous(desc['anomalous_conditions'], *args, env = env)
+        result = await run_process_anomalous(desc['anomalous_conditions'], *args, env = env, max_concurrent_tasks=max_concurrent_tasks)
 
     (exec_desc, returncode, stdout) = result
 
@@ -193,12 +193,12 @@ def apalache_args(spec_dir, desc):
         os.path.join(spec_dir, desc['main_module']) + '.json'
     ]
 
-async def run_apalache_internal(spec_dir, desc):
+async def run_apalache_internal(spec_dir, desc, max_concurrent_tasks=1):
     env = os.environ.copy()
     env['TMPDIR'] = mk_tmp(desc)
     args = apalache_args(spec_dir, desc)
 
-    (exec_desc, returncode, stdout) = await run_process(*args, env = env)
+    (exec_desc, returncode, stdout) = await run_process(*args, env = env, max_concurrent_tasks=max_concurrent_tasks)
 
     if b'*** Warnings:' in stdout:
         status = f'warning<{returncode}>'
@@ -219,21 +219,21 @@ async def run_apalache_internal(spec_dir, desc):
 
     return (exec_desc, status, returncode, stdout)
 
-async def run_tlc(spec_dir, exec_dir, desc, force, execution_results, coverage, is_anomalous):
+async def run_tlc(spec_dir, exec_dir, desc, force, execution_results, coverage, is_anomalous, max_concurrent_tasks=1):
     async def f():
-        r = await run_tlc_internal(spec_dir, exec_dir, desc, coverage, is_anomalous)
+        r = await run_tlc_internal(spec_dir, exec_dir, desc, coverage, is_anomalous, max_concurrent_tasks)
         return r
     r = await run_wrapper(exec_dir, desc['id'], force, f)
     execution_results[desc['id']] = r
 
-async def run_apalache(spec_dir, exec_dir, desc, force, execution_results):
+async def run_apalache(spec_dir, exec_dir, desc, force, execution_results, max_concurrent_tasks=1):
     async def f():
-        r = await run_apalache_internal(spec_dir, desc)
+        r = await run_apalache_internal(spec_dir, desc, max_concurrent_tasks)
         return r
     r = await run_wrapper(exec_dir, desc['id'], force, f)
     execution_results[desc['id']] = r
 
-def collect_testcase(spec_dir, exec_dir, desc, force, tasks, execution_results, coverage):
+def collect_testcase(spec_dir, exec_dir, desc, force, tasks, execution_results, coverage, max_concurrent_tasks=1):
     assert desc['type'] in [TestCaseType_RefApalache, TestCaseType_RefTlc, TestCaseType_RefAnomalous]
     logging.debug(f'collect_testcase: {desc["desc"]}')
 
@@ -255,7 +255,8 @@ def collect_testcase(spec_dir, exec_dir, desc, force, tasks, execution_results, 
             force,
             execution_results,
             coverage,
-            is_anomalous = desc['type'] == TestCaseType_RefAnomalous)
+            is_anomalous = desc['type'] == TestCaseType_RefAnomalous,
+            max_concurrent_tasks = max_concurrent_tasks)
 
     # Do not execute reference model if coverage is collected or
     # this is an anomalous conditions test
@@ -264,11 +265,11 @@ def collect_testcase(spec_dir, exec_dir, desc, force, tasks, execution_results, 
         if ref_id not in tasks:
             if desc['type'] == TestCaseType_RefApalache:
                 tasks[ref_id] = run_apalache(
-                    ref_path, exec_dir, desc['ref'], force, execution_results)
+                    ref_path, exec_dir, desc['ref'], force, execution_results, max_concurrent_tasks)
             elif desc['type'] == TestCaseType_RefTlc:
                 tasks[ref_id] = run_tlc(
                     ref_path, exec_dir, desc['ref'], force, execution_results,
-                    coverage = False, is_anomalous = False)
+                    coverage = False, is_anomalous = False, max_concurrent_tasks = max_concurrent_tasks)
             else:
                 assert False, f'Unknown case type {desc["type"]}'
     return tc
@@ -357,7 +358,7 @@ def run_testcases_parallel(
                 continue
             # Prepare meta information; the report is updated with actual results later on
             report[tc['id']] = collect_testcase(
-                spec_dir, exec_dir, tc, force, tasks, execution_results, coverage)
+                spec_dir, exec_dir, tc, force, tasks, execution_results, coverage, workers)
 
         run_tasks(list(tasks.values()), max_concurrent_tasks = workers)
 
