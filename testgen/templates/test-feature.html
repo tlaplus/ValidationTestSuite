@@ -1,0 +1,64 @@
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved. -->
+{% extends "base-toc.html" %}
+
+{% block title %}
+Test Specification: Index By Feature For workers={{ workers }}
+{% endblock %}
+
+{% block header %}
+Test Specification: Index By Feature For workers={{ workers }}
+{% endblock %}
+
+{% block toc %}{{ toc }}{% endblock %}
+
+{% block content %}
+
+This page is an index of all test cases, produced by pairwise combining of the TLA+ language
+features. Feature is an operator, constant, variable, or other TLA+ language construct, which is
+required by the use cases.
+
+How to use this index:
+
+  <li>
+    This index list all the features
+  </li>
+  <li>
+    In generated test cases, a feature can be either <span class="keyword">case</span> or
+    <span class="keyword">plug</span>. Note that the same feature can be
+    <span class="keyword">case</span> in one test case and <span class="keyword">plug</span> in the
+    other
+  </li>
+  <li>
+    Column <b>Case Index</b> allows to see all test cases, where a given feature
+    participates as <span class="keyword">case</span>
+  </li>
+  <li>
+    Column <b>Plug Index</b> allows to see all test cases, where a given feature participates as
+    <span class="keyword">plug</span>
+  </li>
+
+  <h2>
+    Test Cases
+  </h2>
+
+  <table class="spec-table">
+  <tr>
+    <th>
+        Case Index
+    </th>
+    <th>
+        Plug Index
+    </th>
+  </tr>
+  {% for feature in features %}
+    <tr>
+      <td>
+        <a href={{ index_refs.cases[feature] }}><span class="keyword">{{ feature }}</span></a>
+    </td>
+    <td>
+        <a href={{ index_refs.plugs[feature] }}><span class="keyword">{{ feature }}</span></a>
+    </td>
+</tr>
+  {% endfor %}
+  </td>
+{% endblock %}

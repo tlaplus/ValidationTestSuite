@@ -1,0 +1,1421 @@
+      [
+        {
+          "source": "UNKNOWN",
+          "type": "(((a151 -> Int)) => Bool)",
+          "kind": "TlaOperDecl",
+          "name": "IsABag",
+          "formalParams": [
+            {
+              "kind": "OperParam",
+              "name": "__B",
+              "arity": 0
+            }
+          ],
+          "isRecursive": false,
+          "body": {
+            "source": "UNKNOWN",
+            "type": "Bool",
+            "kind": "OperEx",
+            "oper": "FORALL3",
+            "args": [
+              {
+                "source": "UNKNOWN",
+                "type": "a151",
+                "kind": "NameEx",
+                "name": "__x"
+              },
+              {
+                "source": "UNKNOWN",
+                "type": "Set(a151)",
+                "kind": "OperEx",
+                "oper": "DOMAIN",
+                "args": [
+                  {
+                    "source": "UNKNOWN",
+                    "type": "(a151 -> Int)",
+                    "kind": "NameEx",
+                    "name": "__B"
+                  }
+                ]
+              },
+              {
+                "source": "UNKNOWN",
+                "type": "Bool",
+                "kind": "OperEx",
+                "oper": "GT",
+                "args": [
+                  {
+                    "source": "UNKNOWN",
+                    "type": "Int",
+                    "kind": "OperEx",
+                    "oper": "FUN_APP",
+                    "args": [
+                      {
+                        "source": "UNKNOWN",
+                        "type": "(a151 -> Int)",
+                        "kind": "NameEx",
+                        "name": "__B"
+                      },
+                      {
+                        "source": "UNKNOWN",
+                        "type": "a151",
+                        "kind": "NameEx",
+                        "name": "__x"
+                      }
+                    ]
+                  },
+                  {
+                    "source": "UNKNOWN",
+                    "type": "Int",
+                    "kind": "ValEx",
+                    "value": {
+                      "kind": "TlaInt",
+                      "value": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "source": "UNKNOWN",
+          "type": "(((a145 -> Int)) => Set(a145))",
+          "kind": "TlaOperDecl",
+          "name": "BagToSet",
+          "formalParams": [
+            {
+              "kind": "OperParam",
+              "name": "__B",
+              "arity": 0
+            }
+          ],
+          "isRecursive": false,
+          "body": {
+            "source": "UNKNOWN",
+            "type": "Set(a145)",
+            "kind": "OperEx",
+            "oper": "DOMAIN",
+            "args": [
+              {
+                "source": "UNKNOWN",
+                "type": "(a145 -> Int)",
+                "kind": "NameEx",
+                "name": "__B"
+              }
+            ]
+          }
+        },
+        {
+          "source": "UNKNOWN",
+          "type": "((Set(a141)) => (a141 -> Int))",
+          "kind": "TlaOperDecl",
+          "name": "SetToBag",
+          "formalParams": [
+            {
+              "kind": "OperParam",
+              "name": "__S",
+              "arity": 0
+            }
+          ],
+          "isRecursive": false,
+          "body": {
+            "source": "UNKNOWN",
+            "type": "(a141 -> Int)",
+            "kind": "OperEx",
+            "oper": "FUN_CTOR",
+            "args": [
+              {
+                "source": "UNKNOWN",
+                "type": "Int",
+                "kind": "ValEx",
+                "value": {
+                  "kind": "TlaInt",
+                  "value": 1
+                }
+              },
+              {
+                "source": "UNKNOWN",
+                "type": "a141",
+                "kind": "NameEx",
+                "name": "__e"
+              },
+              {
+                "source": "UNKNOWN",
+                "type": "Set(a141)",
+                "kind": "NameEx",
+                "name": "__S"
+              }
+            ]
+          }
+        },
+        {
+          "source": "UNKNOWN",
+          "type": "(() => (a136 -> Int))",
+          "kind": "TlaOperDecl",
+          "name": "EmptyBag",
+          "formalParams": [
+            
+          ],
+          "isRecursive": false,
+          "body": {
+            "source": "UNKNOWN",
+            "type": "(a136 -> Int)",
+            "kind": "OperEx",
+            "oper": "FUN_CTOR",
+            "args": [
+              {
+                "source": "UNKNOWN",
+                "type": "Int",
+                "kind": "ValEx",
+                "value": {
+                  "kind": "TlaInt",
+                  "value": 0
+                }
+              },
+              {
+                "source": "UNKNOWN",
+                "type": "a136",
+                "kind": "NameEx",
+                "name": "__x"
+              },
+              {
+                "source": "UNKNOWN",
+                "type": "Set(a136)",
+                "kind": "OperEx",
+                "oper": "SET_ENUM",
+                "args": [
+                  
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "source": "UNKNOWN",
+          "type": "(((a113 -> Int), (a113 -> Int)) => (a113 -> Int))",
+          "kind": "TlaOperDecl",
+          "name": "\\oplus",
+          "formalParams": [
+            {
+              "kind": "OperParam",
+              "name": "__B1",
+              "arity": 0
+            },
+            {
+              "kind": "OperParam",
+              "name": "__B2",
+              "arity": 0
+            }
+          ],
+          "isRecursive": false,
+          "body": {
+            "source": "UNKNOWN",
+            "type": "(a113 -> Int)",
+            "kind": "LetInEx",
+            "body": {
+              "source": "UNKNOWN",
+              "type": "(a113 -> Int)",
+              "kind": "OperEx",
+              "oper": "FUN_CTOR",
+              "args": [
+                {
+                  "source": "UNKNOWN",
+                  "type": "Int",
+                  "kind": "OperEx",
+                  "oper": "PLUS",
+                  "args": [
+                    {
+                      "source": "UNKNOWN",
+                      "type": "Int",
+                      "kind": "OperEx",
+                      "oper": "IF_THEN_ELSE",
+                      "args": [
+                        {
+                          "source": "UNKNOWN",
+                          "type": "Bool",
+                          "kind": "OperEx",
+                          "oper": "SET_IN",
+                          "args": [
+                            {
+                              "source": "UNKNOWN",
+                              "type": "a113",
+                              "kind": "NameEx",
+                              "name": "__e"
+                            },
+                            {
+                              "source": "UNKNOWN",
+                              "type": "Set(a113)",
+                              "kind": "OperEx",
+                              "oper": "OPER_APP",
+                              "args": [
+                                {
+                                  "source": "UNKNOWN",
+                                  "type": "(() => Set(a113))",
+                                  "kind": "NameEx",
+                                  "name": "__D1"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "source": "UNKNOWN",
+                          "type": "Int",
+                          "kind": "OperEx",
+                          "oper": "FUN_APP",
+                          "args": [
+                            {
+                              "source": "UNKNOWN",
+                              "type": "(a113 -> Int)",
+                              "kind": "NameEx",
+                              "name": "__B1"
+                            },
+                            {
+                              "source": "UNKNOWN",
+                              "type": "a113",
+                              "kind": "NameEx",
+                              "name": "__e"
+                            }
+                          ]
+                        },
+                        {
+                          "source": "UNKNOWN",
+                          "type": "Int",
+                          "kind": "ValEx",
+                          "value": {
+                            "kind": "TlaInt",
+                            "value": 0
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "source": "UNKNOWN",
+                      "type": "Int",
+                      "kind": "OperEx",
+                      "oper": "IF_THEN_ELSE",
+                      "args": [
+                        {
+                          "source": "UNKNOWN",
+                          "type": "Bool",
+                          "kind": "OperEx",
+                          "oper": "SET_IN",
+                          "args": [
+                            {
+                              "source": "UNKNOWN",
+                              "type": "a113",
+                              "kind": "NameEx",
+                              "name": "__e"
+                            },
+                            {
+                              "source": "UNKNOWN",
+                              "type": "Set(a113)",
+                              "kind": "OperEx",
+                              "oper": "OPER_APP",
+                              "args": [
+                                {
+                                  "source": "UNKNOWN",
+                                  "type": "(() => Set(a113))",
+                                  "kind": "NameEx",
+                                  "name": "__D2"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "source": "UNKNOWN",
+                          "type": "Int",
+                          "kind": "OperEx",
+                          "oper": "FUN_APP",
+                          "args": [
+                            {
+                              "source": "UNKNOWN",
+                              "type": "(a113 -> Int)",
+                              "kind": "NameEx",
+                              "name": "__B2"
+                            },
+                            {
+                              "source": "UNKNOWN",
+                              "type": "a113",
+                              "kind": "NameEx",
+                              "name": "__e"
+                            }
+                          ]
+                        },
+                        {
+                          "source": "UNKNOWN",
+                          "type": "Int",
+                          "kind": "ValEx",
+                          "value": {
+                            "kind": "TlaInt",
+                            "value": 0
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "source": "UNKNOWN",
+                  "type": "a113",
+                  "kind": "NameEx",
+                  "name": "__e"
+                },
+                {
+                  "source": "UNKNOWN",
+                  "type": "Set(a113)",
+                  "kind": "OperEx",
+                  "oper": "SET_UNION2",
+                  "args": [
+                    {
+                      "source": "UNKNOWN",
+                      "type": "Set(a113)",
+                      "kind": "OperEx",
+                      "oper": "OPER_APP",
+                      "args": [
+                        {
+                          "source": "UNKNOWN",
+                          "type": "(() => Set(a113))",
+                          "kind": "NameEx",
+                          "name": "__D1"
+                        }
+                      ]
+                    },
+                    {
+                      "source": "UNKNOWN",
+                      "type": "Set(a113)",
+                      "kind": "OperEx",
+                      "oper": "OPER_APP",
+                      "args": [
+                        {
+                          "source": "UNKNOWN",
+                          "type": "(() => Set(a113))",
+                          "kind": "NameEx",
+                          "name": "__D2"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "decls": [
+              {
+                "source": "UNKNOWN",
+                "type": "(() => Set(a113))",
+                "kind": "TlaOperDecl",
+                "name": "__D1",
+                "formalParams": [
+                  
+                ],
+                "isRecursive": false,
+                "body": {
+                  "source": "UNKNOWN",
+                  "type": "Set(a113)",
+                  "kind": "OperEx",
+                  "oper": "DOMAIN",
+                  "args": [
+                    {
+                      "source": "UNKNOWN",
+                      "type": "(a113 -> Int)",
+                      "kind": "NameEx",
+                      "name": "__B1"
+                    }
+                  ]
+                }
+              },
+              {
+                "source": "UNKNOWN",
+                "type": "(() => Set(a113))",
+                "kind": "TlaOperDecl",
+                "name": "__D2",
+                "formalParams": [
+                  
+                ],
+                "isRecursive": false,
+                "body": {
+                  "source": "UNKNOWN",
+                  "type": "Set(a113)",
+                  "kind": "OperEx",
+                  "oper": "DOMAIN",
+                  "args": [
+                    {
+                      "source": "UNKNOWN",
+                      "type": "(a113 -> Int)",
+                      "kind": "NameEx",
+                      "name": "__B2"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "source": "UNKNOWN",
+          "type": "(((a79 -> Int), (a79 -> Int)) => (a79 -> Int))",
+          "kind": "TlaOperDecl",
+          "name": "\\ominus",
+          "formalParams": [
+            {
+              "kind": "OperParam",
+              "name": "__B1",
+              "arity": 0
+            },
+            {
+              "kind": "OperParam",
+              "name": "__B2",
+              "arity": 0
+            }
+          ],
+          "isRecursive": false,
+          "body": {
+            "source": "UNKNOWN",
+            "type": "(a79 -> Int)",
+            "kind": "LetInEx",
+            "body": {
+              "source": "UNKNOWN",
+              "type": "(a79 -> Int)",
+              "kind": "LetInEx",
+              "body": {
+                "source": "UNKNOWN",
+                "type": "(a79 -> Int)",
+                "kind": "OperEx",
+                "oper": "FUN_CTOR",
+                "args": [
+                  {
+                    "source": "UNKNOWN",
+                    "type": "Int",
+                    "kind": "OperEx",
+                    "oper": "FUN_APP",
+                    "args": [
+                      {
+                        "source": "UNKNOWN",
+                        "type": "(a79 -> Int)",
+                        "kind": "OperEx",
+                        "oper": "OPER_APP",
+                        "args": [
+                          {
+                            "source": "UNKNOWN",
+                            "type": "(() => (a79 -> Int))",
+                            "kind": "NameEx",
+                            "name": "__WithZeros"
+                          }
+                        ]
+                      },
+                      {
+                        "source": "UNKNOWN",
+                        "type": "a79",
+                        "kind": "NameEx",
+                        "name": "__e"
+                      }
+                    ]
+                  },
+                  {
+                    "source": "UNKNOWN",
+                    "type": "a79",
+                    "kind": "NameEx",
+                    "name": "__e"
+                  },
+                  {
+                    "source": "UNKNOWN",
+                    "type": "Set(a79)",
+                    "kind": "OperEx",
+                    "oper": "OPER_APP",
+                    "args": [
+                      {
+                        "source": "UNKNOWN",
+                        "type": "(() => Set(a79))",
+                        "kind": "NameEx",
+                        "name": "__NewDomain"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "decls": [
+                {
+                  "source": "UNKNOWN",
+                  "type": "(() => Set(a79))",
+                  "kind": "TlaOperDecl",
+                  "name": "__NewDomain",
+                  "formalParams": [
+                    
+                  ],
+                  "isRecursive": false,
+                  "body": {
+                    "source": "UNKNOWN",
+                    "type": "Set(a79)",
+                    "kind": "OperEx",
+                    "oper": "SET_FILTER",
+                    "args": [
+                      {
+                        "source": "UNKNOWN",
+                        "type": "a79",
+                        "kind": "NameEx",
+                        "name": "__e"
+                      },
+                      {
+                        "source": "UNKNOWN",
+                        "type": "Set(a79)",
+                        "kind": "OperEx",
+                        "oper": "DOMAIN",
+                        "args": [
+                          {
+                            "source": "UNKNOWN",
+                            "type": "(a79 -> Int)",
+                            "kind": "OperEx",
+                            "oper": "OPER_APP",
+                            "args": [
+                              {
+                                "source": "UNKNOWN",
+                                "type": "(() => (a79 -> Int))",
+                                "kind": "NameEx",
+                                "name": "__WithZeros"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "source": "UNKNOWN",
+                        "type": "Bool",
+                        "kind": "OperEx",
+                        "oper": "GT",
+                        "args": [
+                          {
+                            "source": "UNKNOWN",
+                            "type": "Int",
+                            "kind": "OperEx",
+                            "oper": "FUN_APP",
+                            "args": [
+                              {
+                                "source": "UNKNOWN",
+                                "type": "(a79 -> Int)",
+                                "kind": "OperEx",
+                                "oper": "OPER_APP",
+                                "args": [
+                                  {
+                                    "source": "UNKNOWN",
+                                    "type": "(() => (a79 -> Int))",
+                                    "kind": "NameEx",
+                                    "name": "__WithZeros"
+                                  }
+                                ]
+                              },
+                              {
+                                "source": "UNKNOWN",
+                                "type": "a79",
+                                "kind": "NameEx",
+                                "name": "__e"
+                              }
+                            ]
+                          },
+                          {
+                            "source": "UNKNOWN",
+                            "type": "Int",
+                            "kind": "ValEx",
+                            "value": {
+                              "kind": "TlaInt",
+                              "value": 0
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "decls": [
+              {
+                "source": "UNKNOWN",
+                "type": "(() => (a79 -> Int))",
+                "kind": "TlaOperDecl",
+                "name": "__WithZeros",
+                "formalParams": [
+                  
+                ],
+                "isRecursive": false,
+                "body": {
+                  "source": "UNKNOWN",
+                  "type": "(a79 -> Int)",
+                  "kind": "OperEx",
+                  "oper": "FUN_CTOR",
+                  "args": [
+                    {
+                      "source": "UNKNOWN",
+                      "type": "Int",
+                      "kind": "OperEx",
+                      "oper": "MINUS",
+                      "args": [
+                        {
+                          "source": "UNKNOWN",
+                          "type": "Int",
+                          "kind": "OperEx",
+                          "oper": "FUN_APP",
+                          "args": [
+                            {
+                              "source": "UNKNOWN",
+                              "type": "(a79 -> Int)",
+                              "kind": "NameEx",
+                              "name": "__B1"
+                            },
+                            {
+                              "source": "UNKNOWN",
+                              "type": "a79",
+                              "kind": "NameEx",
+                              "name": "__e"
+                            }
+                          ]
+                        },
+                        {
+                          "source": "UNKNOWN",
+                          "type": "Int",
+                          "kind": "OperEx",
+                          "oper": "IF_THEN_ELSE",
+                          "args": [
+                            {
+                              "source": "UNKNOWN",
+                              "type": "Bool",
+                              "kind": "OperEx",
+                              "oper": "SET_IN",
+                              "args": [
+                                {
+                                  "source": "UNKNOWN",
+                                  "type": "a79",
+                                  "kind": "NameEx",
+                                  "name": "__e"
+                                },
+                                {
+                                  "source": "UNKNOWN",
+                                  "type": "Set(a79)",
+                                  "kind": "OperEx",
+                                  "oper": "DOMAIN",
+                                  "args": [
+                                    {
+                                      "source": "UNKNOWN",
+                                      "type": "(a79 -> Int)",
+                                      "kind": "NameEx",
+                                      "name": "__B2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "source": "UNKNOWN",
+                              "type": "Int",
+                              "kind": "OperEx",
+                              "oper": "FUN_APP",
+                              "args": [
+                                {
+                                  "source": "UNKNOWN",
+                                  "type": "(a79 -> Int)",
+                                  "kind": "NameEx",
+                                  "name": "__B2"
+                                },
+                                {
+                                  "source": "UNKNOWN",
+                                  "type": "a79",
+                                  "kind": "NameEx",
+                                  "name": "__e"
+                                }
+                              ]
+                            },
+                            {
+                              "source": "UNKNOWN",
+                              "type": "Int",
+                              "kind": "ValEx",
+                              "value": {
+                                "kind": "TlaInt",
+                                "value": 0
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "source": "UNKNOWN",
+                      "type": "a79",
+                      "kind": "NameEx",
+                      "name": "__e"
+                    },
+                    {
+                      "source": "UNKNOWN",
+                      "type": "Set(a79)",
+                      "kind": "OperEx",
+                      "oper": "DOMAIN",
+                      "args": [
+                        {
+                          "source": "UNKNOWN",
+                          "type": "(a79 -> Int)",
+                          "kind": "NameEx",
+                          "name": "__B1"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "source": "UNKNOWN",
+          "type": "(((a58 -> Int), (a58 -> Int)) => Bool)",
+          "kind": "TlaOperDecl",
+          "name": "\\sqsubseteq",
+          "formalParams": [
+            {
+              "kind": "OperParam",
+              "name": "__B1",
+              "arity": 0
+            },
+            {
+              "kind": "OperParam",
+              "name": "__B2",
+              "arity": 0
+            }
+          ],
+          "isRecursive": false,
+          "body": {
+            "source": "UNKNOWN",
+            "type": "Bool",
+            "kind": "OperEx",
+            "oper": "AND",
+            "args": [
+              {
+                "source": "UNKNOWN",
+                "type": "Bool",
+                "kind": "OperEx",
+                "oper": "SET_SUBSET_EQ",
+                "args": [
+                  {
+                    "source": "UNKNOWN",
+                    "type": "Set(a58)",
+                    "kind": "OperEx",
+                    "oper": "DOMAIN",
+                    "args": [
+                      {
+                        "source": "UNKNOWN",
+                        "type": "(a58 -> Int)",
+                        "kind": "NameEx",
+                        "name": "__B1"
+                      }
+                    ]
+                  },
+                  {
+                    "source": "UNKNOWN",
+                    "type": "Set(a58)",
+                    "kind": "OperEx",
+                    "oper": "DOMAIN",
+                    "args": [
+                      {
+                        "source": "UNKNOWN",
+                        "type": "(a58 -> Int)",
+                        "kind": "NameEx",
+                        "name": "__B2"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "source": "UNKNOWN",
+                "type": "Bool",
+                "kind": "OperEx",
+                "oper": "FORALL3",
+                "args": [
+                  {
+                    "source": "UNKNOWN",
+                    "type": "a58",
+                    "kind": "NameEx",
+                    "name": "__e"
+                  },
+                  {
+                    "source": "UNKNOWN",
+                    "type": "Set(a58)",
+                    "kind": "OperEx",
+                    "oper": "DOMAIN",
+                    "args": [
+                      {
+                        "source": "UNKNOWN",
+                        "type": "(a58 -> Int)",
+                        "kind": "NameEx",
+                        "name": "__B1"
+                      }
+                    ]
+                  },
+                  {
+                    "source": "UNKNOWN",
+                    "type": "Bool",
+                    "kind": "OperEx",
+                    "oper": "LE",
+                    "args": [
+                      {
+                        "source": "UNKNOWN",
+                        "type": "Int",
+                        "kind": "OperEx",
+                        "oper": "FUN_APP",
+                        "args": [
+                          {
+                            "source": "UNKNOWN",
+                            "type": "(a58 -> Int)",
+                            "kind": "NameEx",
+                            "name": "__B1"
+                          },
+                          {
+                            "source": "UNKNOWN",
+                            "type": "a58",
+                            "kind": "NameEx",
+                            "name": "__e"
+                          }
+                        ]
+                      },
+                      {
+                        "source": "UNKNOWN",
+                        "type": "Int",
+                        "kind": "OperEx",
+                        "oper": "FUN_APP",
+                        "args": [
+                          {
+                            "source": "UNKNOWN",
+                            "type": "(a58 -> Int)",
+                            "kind": "NameEx",
+                            "name": "__B2"
+                          },
+                          {
+                            "source": "UNKNOWN",
+                            "type": "a58",
+                            "kind": "NameEx",
+                            "name": "__e"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "source": "UNKNOWN",
+          "type": "(((a40 -> Int)) => Int)",
+          "kind": "TlaOperDecl",
+          "name": "BagCardinality",
+          "formalParams": [
+            {
+              "kind": "OperParam",
+              "name": "__B",
+              "arity": 0
+            }
+          ],
+          "isRecursive": false,
+          "body": {
+            "source": "UNKNOWN",
+            "type": "Int",
+            "kind": "LetInEx",
+            "body": {
+              "source": "UNKNOWN",
+              "type": "Int",
+              "kind": "OperEx",
+              "oper": "Apalache!ApaFoldSet",
+              "args": [
+                {
+                  "source": "UNKNOWN",
+                  "type": "((Int, a40) => Int)",
+                  "kind": "NameEx",
+                  "name": "__CountElem"
+                },
+                {
+                  "source": "UNKNOWN",
+                  "type": "Int",
+                  "kind": "ValEx",
+                  "value": {
+                    "kind": "TlaInt",
+                    "value": 0
+                  }
+                },
+                {
+                  "source": "UNKNOWN",
+                  "type": "Set(a40)",
+                  "kind": "OperEx",
+                  "oper": "DOMAIN",
+                  "args": [
+                    {
+                      "source": "UNKNOWN",
+                      "type": "(a40 -> Int)",
+                      "kind": "NameEx",
+                      "name": "__B"
+                    }
+                  ]
+                }
+              ]
+            },
+            "decls": [
+              {
+                "source": "UNKNOWN",
+                "type": "((Int, a40) => Int)",
+                "kind": "TlaOperDecl",
+                "name": "__CountElem",
+                "formalParams": [
+                  {
+                    "kind": "OperParam",
+                    "name": "__i",
+                    "arity": 0
+                  },
+                  {
+                    "kind": "OperParam",
+                    "name": "__e",
+                    "arity": 0
+                  }
+                ],
+                "isRecursive": false,
+                "body": {
+                  "source": "UNKNOWN",
+                  "type": "Int",
+                  "kind": "OperEx",
+                  "oper": "PLUS",
+                  "args": [
+                    {
+                      "source": "UNKNOWN",
+                      "type": "Int",
+                      "kind": "NameEx",
+                      "name": "__i"
+                    },
+                    {
+                      "source": "UNKNOWN",
+                      "type": "Int",
+                      "kind": "OperEx",
+                      "oper": "FUN_APP",
+                      "args": [
+                        {
+                          "source": "UNKNOWN",
+                          "type": "(a40 -> Int)",
+                          "kind": "NameEx",
+                          "name": "__B"
+                        },
+                        {
+                          "source": "UNKNOWN",
+                          "type": "a40",
+                          "kind": "NameEx",
+                          "name": "__e"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "source": "UNKNOWN",
+          "type": "((a35, (a35 -> Int)) => Bool)",
+          "kind": "TlaOperDecl",
+          "name": "BagIn",
+          "formalParams": [
+            {
+              "kind": "OperParam",
+              "name": "__e",
+              "arity": 0
+            },
+            {
+              "kind": "OperParam",
+              "name": "__B",
+              "arity": 0
+            }
+          ],
+          "isRecursive": false,
+          "body": {
+            "source": "UNKNOWN",
+            "type": "Bool",
+            "kind": "OperEx",
+            "oper": "SET_IN",
+            "args": [
+              {
+                "source": "UNKNOWN",
+                "type": "a35",
+                "kind": "NameEx",
+                "name": "__e"
+              },
+              {
+                "source": "UNKNOWN",
+                "type": "Set(a35)",
+                "kind": "OperEx",
+                "oper": "OPER_APP",
+                "args": [
+                  {
+                    "source": "UNKNOWN",
+                    "type": "(((a35 -> Int)) => Set(a35))",
+                    "kind": "NameEx",
+                    "name": "BagToSet"
+                  },
+                  {
+                    "source": "UNKNOWN",
+                    "type": "(a35 -> Int)",
+                    "kind": "NameEx",
+                    "name": "__B"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "source": "UNKNOWN",
+          "type": "((Set((a28 -> Int))) => (a28 -> Int))",
+          "kind": "TlaOperDecl",
+          "name": "BagUnion",
+          "formalParams": [
+            {
+              "kind": "OperParam",
+              "name": "__S",
+              "arity": 0
+            }
+          ],
+          "isRecursive": false,
+          "body": {
+            "source": "UNKNOWN",
+            "type": "(a28 -> Int)",
+            "kind": "LetInEx",
+            "body": {
+              "source": "UNKNOWN",
+              "type": "(a28 -> Int)",
+              "kind": "OperEx",
+              "oper": "Apalache!ApaFoldSet",
+              "args": [
+                {
+                  "source": "UNKNOWN",
+                  "type": "(((a28 -> Int), (a28 -> Int)) => (a28 -> Int))",
+                  "kind": "NameEx",
+                  "name": "__PlusAsPrefix"
+                },
+                {
+                  "source": "UNKNOWN",
+                  "type": "(a28 -> Int)",
+                  "kind": "OperEx",
+                  "oper": "OPER_APP",
+                  "args": [
+                    {
+                      "source": "UNKNOWN",
+                      "type": "(() => (a28 -> Int))",
+                      "kind": "NameEx",
+                      "name": "EmptyBag"
+                    }
+                  ]
+                },
+                {
+                  "source": "UNKNOWN",
+                  "type": "Set((a28 -> Int))",
+                  "kind": "NameEx",
+                  "name": "__S"
+                }
+              ]
+            },
+            "decls": [
+              {
+                "source": "UNKNOWN",
+                "type": "(((a33 -> Int), (a33 -> Int)) => (a33 -> Int))",
+                "kind": "TlaOperDecl",
+                "name": "__PlusAsPrefix",
+                "formalParams": [
+                  {
+                    "kind": "OperParam",
+                    "name": "__B1",
+                    "arity": 0
+                  },
+                  {
+                    "kind": "OperParam",
+                    "name": "__B2",
+                    "arity": 0
+                  }
+                ],
+                "isRecursive": false,
+                "body": {
+                  "source": "UNKNOWN",
+                  "type": "(a33 -> Int)",
+                  "kind": "OperEx",
+                  "oper": "OPER_APP",
+                  "args": [
+                    {
+                      "source": "UNKNOWN",
+                      "type": "(((a33 -> Int), (a33 -> Int)) => (a33 -> Int))",
+                      "kind": "NameEx",
+                      "name": "\\oplus"
+                    },
+                    {
+                      "source": "UNKNOWN",
+                      "type": "(a33 -> Int)",
+                      "kind": "NameEx",
+                      "name": "__B1"
+                    },
+                    {
+                      "source": "UNKNOWN",
+                      "type": "(a33 -> Int)",
+                      "kind": "NameEx",
+                      "name": "__B2"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "source": "UNKNOWN",
+          "type": "((((g) => h), (g -> Int)) => (h -> Int))",
+          "kind": "TlaOperDecl",
+          "name": "BagOfAll",
+          "formalParams": [
+            {
+              "kind": "OperParam",
+              "name": "__F",
+              "arity": 1
+            },
+            {
+              "kind": "OperParam",
+              "name": "__B",
+              "arity": 0
+            }
+          ],
+          "isRecursive": false,
+          "body": {
+            "source": "UNKNOWN",
+            "type": "(h -> Int)",
+            "kind": "LetInEx",
+            "body": {
+              "source": "UNKNOWN",
+              "type": "(h -> Int)",
+              "kind": "OperEx",
+              "oper": "Apalache!ApaFoldSet",
+              "args": [
+                {
+                  "source": "UNKNOWN",
+                  "type": "(((h -> Int), g) => (h -> Int))",
+                  "kind": "NameEx",
+                  "name": "__Extend"
+                },
+                {
+                  "source": "UNKNOWN",
+                  "type": "(h -> Int)",
+                  "kind": "OperEx",
+                  "oper": "OPER_APP",
+                  "args": [
+                    {
+                      "source": "UNKNOWN",
+                      "type": "(() => (h -> Int))",
+                      "kind": "NameEx",
+                      "name": "EmptyBag"
+                    }
+                  ]
+                },
+                {
+                  "source": "UNKNOWN",
+                  "type": "Set(g)",
+                  "kind": "OperEx",
+                  "oper": "DOMAIN",
+                  "args": [
+                    {
+                      "source": "UNKNOWN",
+                      "type": "(g -> Int)",
+                      "kind": "NameEx",
+                      "name": "__B"
+                    }
+                  ]
+                }
+              ]
+            },
+            "decls": [
+              {
+                "source": "UNKNOWN",
+                "type": "(((h -> Int), g) => (h -> Int))",
+                "kind": "TlaOperDecl",
+                "name": "__Extend",
+                "formalParams": [
+                  {
+                    "kind": "OperParam",
+                    "name": "__partialB",
+                    "arity": 0
+                  },
+                  {
+                    "kind": "OperParam",
+                    "name": "__elem",
+                    "arity": 0
+                  }
+                ],
+                "isRecursive": false,
+                "body": {
+                  "source": "UNKNOWN",
+                  "type": "(h -> Int)",
+                  "kind": "OperEx",
+                  "oper": "OPER_APP",
+                  "args": [
+                    {
+                      "source": "UNKNOWN",
+                      "type": "(((h -> Int), (h -> Int)) => (h -> Int))",
+                      "kind": "NameEx",
+                      "name": "\\oplus"
+                    },
+                    {
+                      "source": "UNKNOWN",
+                      "type": "(h -> Int)",
+                      "kind": "NameEx",
+                      "name": "__partialB"
+                    },
+                    {
+                      "source": "UNKNOWN",
+                      "type": "(h -> Int)",
+                      "kind": "OperEx",
+                      "oper": "FUN_CTOR",
+                      "args": [
+                        {
+                          "source": "UNKNOWN",
+                          "type": "Int",
+                          "kind": "OperEx",
+                          "oper": "FUN_APP",
+                          "args": [
+                            {
+                              "source": "UNKNOWN",
+                              "type": "(g -> Int)",
+                              "kind": "NameEx",
+                              "name": "__B"
+                            },
+                            {
+                              "source": "UNKNOWN",
+                              "type": "g",
+                              "kind": "NameEx",
+                              "name": "__elem"
+                            }
+                          ]
+                        },
+                        {
+                          "source": "UNKNOWN",
+                          "type": "h",
+                          "kind": "NameEx",
+                          "name": "__e"
+                        },
+                        {
+                          "source": "UNKNOWN",
+                          "type": "Set(h)",
+                          "kind": "OperEx",
+                          "oper": "SET_ENUM",
+                          "args": [
+                            {
+                              "source": "UNKNOWN",
+                              "type": "h",
+                              "kind": "OperEx",
+                              "oper": "OPER_APP",
+                              "args": [
+                                {
+                                  "source": "UNKNOWN",
+                                  "type": "((g) => h)",
+                                  "kind": "NameEx",
+                                  "name": "__F"
+                                },
+                                {
+                                  "source": "UNKNOWN",
+                                  "type": "g",
+                                  "kind": "NameEx",
+                                  "name": "__elem"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "source": "UNKNOWN",
+          "type": "((a, (a -> Int)) => Int)",
+          "kind": "TlaOperDecl",
+          "name": "CopiesIn",
+          "formalParams": [
+            {
+              "kind": "OperParam",
+              "name": "__e",
+              "arity": 0
+            },
+            {
+              "kind": "OperParam",
+              "name": "__B",
+              "arity": 0
+            }
+          ],
+          "isRecursive": false,
+          "body": {
+            "source": "UNKNOWN",
+            "type": "Int",
+            "kind": "OperEx",
+            "oper": "IF_THEN_ELSE",
+            "args": [
+              {
+                "source": "UNKNOWN",
+                "type": "Bool",
+                "kind": "OperEx",
+                "oper": "OPER_APP",
+                "args": [
+                  {
+                    "source": "UNKNOWN",
+                    "type": "((a, (a -> Int)) => Bool)",
+                    "kind": "NameEx",
+                    "name": "BagIn"
+                  },
+                  {
+                    "source": "UNKNOWN",
+                    "type": "a",
+                    "kind": "NameEx",
+                    "name": "__e"
+                  },
+                  {
+                    "source": "UNKNOWN",
+                    "type": "(a -> Int)",
+                    "kind": "NameEx",
+                    "name": "__B"
+                  }
+                ]
+              },
+              {
+                "source": "UNKNOWN",
+                "type": "Int",
+                "kind": "OperEx",
+                "oper": "FUN_APP",
+                "args": [
+                  {
+                    "source": "UNKNOWN",
+                    "type": "(a -> Int)",
+                    "kind": "NameEx",
+                    "name": "__B"
+                  },
+                  {
+                    "source": "UNKNOWN",
+                    "type": "a",
+                    "kind": "NameEx",
+                    "name": "__e"
+                  }
+                ]
+              },
+              {
+                "source": "UNKNOWN",
+                "type": "Int",
+                "kind": "ValEx",
+                "value": {
+                  "kind": "TlaInt",
+                  "value": 0
+                }
+              }
+            ]
+          }
+        }
+      ]

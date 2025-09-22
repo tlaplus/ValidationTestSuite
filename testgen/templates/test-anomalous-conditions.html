@@ -1,0 +1,78 @@
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved. -->
+{% extends "base-toc.html" %}
+
+{% block title %}
+Test under anomalous conditions
+{% endblock %}
+
+{% block header %}
+Test the behavior under anomalous operating conditions
+{% endblock %}
+
+{% block toc %}{{ toc }}{% endblock %}
+
+{% block content %}
+
+These are test cases to check the TLA+ Model Checker behavior under anomalous operating conditions.
+These tests use the same model, but checking of the model is performed under specific conditions,
+where where computational resources (depending on the test case) are not enough to complete the
+task successfully.
+Main objective of these tests is to ensure that the tool is capable to detect and report such
+situations. Thus expecting outcome is <span class="keyword">crash</span> for all the cases.
+
+<h2>
+    Test Cases
+</h2>
+
+  <table class="spec-table">
+  <tr>
+        <th class="nostretch">
+        Id
+        </th>
+        <th>
+        Anomalous Conditions
+        </th>
+        <th>
+        Model Checking Status
+        </th>
+        <th>
+        Expected Status
+        </th>
+        <th>
+        Test Results
+        </th>
+        <th>
+        Test Model
+        </th>
+  </tr>
+  {% for tc in spec %}
+    <tr>
+        <td class="nostretch">
+            <a class="sha1-id" id="{{ tc.id }}" desc="{{ tc.id }}">{{ tc.id }}</a>
+        </td>
+        <td>
+            <span class="keyword">{{ tc.desc.desc }}</span>
+        </td>
+        <td>
+            <span class="keyword">{{ results[tc.id].tlc_status }}</span>
+        </td>
+        <td>
+            <span class="keyword">crash</span>
+        </td>
+        <td>
+            <span class="keyword">
+            {% if results[tc.id].verdict == "Passed" %}
+            Passed
+            {% else %}
+            Failed: {{ results[tc.id].explanation }}
+            {% endif %}
+            </span>
+        </td>
+        <td>
+            <a href=test-model-{{tc.tlc.id}}.html>Model Under Test</a>
+        </td>
+      </tr>
+  {% endfor %}
+  </table>
+
+{% endblock %}

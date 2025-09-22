@@ -1,0 +1,149 @@
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved. -->
+{% extends "base-toc.html" %}
+
+{% block title %}
+Test Specification and Execution Report
+{% endblock %}
+
+{% block header %}
+Test Specification and Execution Report
+{% endblock %}
+
+{% block toc %}{{ toc }}{% endblock %}
+
+{% block content %}
+
+<div class="main-toc">
+
+    <h2>
+    Introduction
+    </h2>
+
+    This report contains test specification and results of their execution. There are several kinds
+    of tests:
+
+    <ul>
+    <li>
+        <a href=test-feature-workers_1.html>Tests obtained by combining pairwise feature
+        combinations</a>. Feature is a TLA+ operator, constant, variable, or other TLA+ language
+        construct, which is required to support the use cases.
+        These cases utilize back-to-back testing approach to evaluate if a test is failed or passed.
+    </li>
+    <li>
+        Some feature combinations make not sense (e.g., integer multiplication and boolean constant).
+        Such combinations are "skipped": no test case is generated out of them. All such
+        combinations are listed in the page <a href=test-feature-skipped.html>Skipped feature combinations</a>
+        along with reasons, why they have been skipped
+    </li>
+    <li>
+        If during back-to-back testing outcomes of the model-under-test and equivalent model
+        diverge, the test is failed. All failed cases are listed in the page <a href=test-feature-failed.html>Failed
+        test cases</a>. This report also provides explanation for every failed test case. <b>There
+        must be no failed tests without explanation</b>
+    </li>
+    <li>
+        There is a group of <a href=test-symmetry-workers_1.html> <span class="keyword">SYMMETRY
+        </span> tests</a>, designed to validate important model checker optimization for symmetry
+        sets. These tests also use back-to-back approach, but the only difference between
+        model-under-test and equivalent model is that the latter does not use symmetry set
+        optimization.
+        These cases utilize back-to-back testing approach to evaluate if a test is failed or passed.
+    </li>
+    <li>
+        Another group of tests is designed to validate TLA+ Model Checker behavior, when command line
+        switch <span class="keyword">-workers</span> is provided with a value greater than one.
+        (Note that test cases above use command line option <span class="keyword">-workers 1</span>).
+        And these test cases check that the number of workers does not affect model checking results.
+
+        <ul>
+            {% for w in workers %}
+                {% if w != '1' %}
+                    <li>
+                        <a href=test-feature-workers_{{ w }}.html>Tests by feature combinations: <span class="keyword">-workers {{ w }}</a>
+                    </li>
+                    <li>
+                        <a href=test-symmetry-workers_{{ w }}.html><span class="keyword">SYMMETRY</span> tests: <span class="keyword">-workers {{ w }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </li>
+    <li>
+        The last group of tests checks the behavior of the tool under anomalous operating conditions,
+        where computational resources are not enough to complete the task successfully.
+        Main objective of the <a href=test-anomalous-conditions.html>tests under anomalous
+        conditions</a> is to ensure that the tool is capable to detect and report such situations.
+        These cases are expected to fail.
+    </li>
+
+    <h2>
+        Statistics
+    </h2>
+
+    <table class="statistics-table">
+        <tr>
+            <td>Skipped test cases</td>
+            <td>{{ statistics['skipped'] }}</td>
+        </tr>
+        <tr>
+            <td>Generated test cases</td>
+            <td>{{ statistics['generated'] }}</td>
+        </tr>
+        <tr>
+            <td>Passed test cases</td>
+            <td>{{ statistics['passed'] }}</td>
+        </tr>
+        <tr>
+            <td>Failed with explanation</td>
+            <td>{{ statistics['failed_explained'] }}</td>
+        </tr>
+        <tr>
+            <td>Failed without explanation</td>
+            <td>{{ statistics['failed_unexplained'] }}</td>
+        </tr>
+    </table>
+
+    <!--
+    <ul>
+        <li>
+            <a href=test-feature-skipped.html>Skipped feature combinations</a>:
+            Ruled out combinations of features (e.g., due to type incompatibility)
+        </li>
+        <li>
+            <a href=test-feature-failed.html>Failed test cases</a>:
+            Test cases, where execution outcomes of model under test and the equivalent model
+            do not match
+        </li>
+        <li>
+            <a href=test-anomalous-conditions.html>Tests under anomalous conditions</a>:
+            Test cases exercising the TLC model checker under anomalous operating conditions
+            (insufficient memory, disk space, or system handles)
+        </li>
+        <li>
+            <a href=test-feature-workers_1.html>Tests by feature combinations</a>:
+            Test cases obtained by pairwise feature combinations
+        </li>
+        <li>
+            <a href=test-symmetry-workers_1.html><span class="keyword">SYMMETRY</span> tests</a>
+            Test cases obtained by pairwise configuration parameter combinations to check
+            <span class="keyword">SYMMETRY</span> optimization setting
+        </li>
+    </ul>
+
+    <h2>Tests with different command line option <span class="keyword">-workers</span></a></h2>
+    <ul>
+    {% for w in workers %}
+        {% if w != '1' %}
+            <li>
+                <a href=test-feature-workers_{{ w }}.html>Tests by feature combinations: <span class="keyword">-workers {{ w }}</a>
+            </li>
+            <li>
+                <a href=test-symmetry-workers_{{ w }}.html><span class="keyword">SYMMETRY</span> tests: <span class="keyword">-workers {{ w }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    -->
+</div>
+
+{% endblock %}
