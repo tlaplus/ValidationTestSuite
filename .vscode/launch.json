@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug testgen - Full Run",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "testgen",
+            "args": [
+                "-o",
+                "reports/",
+                "-s",
+                "-e",
+                "--html",
+                "-x",
+                "explanation.yaml",
+                "-w",
+                "1",
+                "-d"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "python": "${workspaceFolder}/venv/bin/python",
+            "justMyCode": false,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
+        }
+    ]
+}

@@ -25,7 +25,7 @@ from .testcasedefs import *
 
 def prepare_command(program, *args):
     cmd = []
-    if platform.system() != "Windows":
+    if platform.system() == "Linux":
         cmd = 'bwrap --bind / / --ro-bind /usr /usr --proc /proc --dev /dev --tmpfs /tmp'.split(' ')
 
     cmd.append(program)
