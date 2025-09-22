@@ -1,0 +1,130 @@
+     [
+        {
+          "source": "UNKNOWN",
+          "type": "((Seq(b), ((b) => Bool)) => Seq(b))",
+          "kind": "TlaOperDecl",
+          "name": "SelectSeq",
+          "formalParams": [
+            {
+              "kind": "OperParam",
+              "name": "__s",
+              "arity": 0
+            },
+            {
+              "kind": "OperParam",
+              "name": "__Test",
+              "arity": 1
+            }
+          ],
+          "isRecursive": false,
+          "body": {
+            "source": "UNKNOWN",
+            "type": "Seq(b)",
+            "kind": "LetInEx",
+            "body": {
+              "source": "UNKNOWN",
+              "type": "Seq(b)",
+              "kind": "OperEx",
+              "oper": "Apalache!ApaFoldSeqLeft",
+              "args": [
+                {
+                  "source": "UNKNOWN",
+                  "type": "((Seq(b), b) => Seq(b))",
+                  "kind": "NameEx",
+                  "name": "__AppendIfTest"
+                },
+                {
+                  "source": "UNKNOWN",
+                  "type": "Seq(b)",
+                  "kind": "OperEx",
+                  "oper": "TUPLE",
+                  "args": [
+                    
+                  ]
+                },
+                {
+                  "source": "UNKNOWN",
+                  "type": "Seq(b)",
+                  "kind": "NameEx",
+                  "name": "__s"
+                }
+              ]
+            },
+            "decls": [
+              {
+                "source": "UNKNOWN",
+                "type": "((Seq(b), b) => Seq(b))",
+                "kind": "TlaOperDecl",
+                "name": "__AppendIfTest",
+                "formalParams": [
+                  {
+                    "kind": "OperParam",
+                    "name": "__res",
+                    "arity": 0
+                  },
+                  {
+                    "kind": "OperParam",
+                    "name": "__e",
+                    "arity": 0
+                  }
+                ],
+                "isRecursive": false,
+                "body": {
+                  "source": "UNKNOWN",
+                  "type": "Seq(b)",
+                  "kind": "OperEx",
+                  "oper": "IF_THEN_ELSE",
+                  "args": [
+                    {
+                      "source": "UNKNOWN",
+                      "type": "Bool",
+                      "kind": "OperEx",
+                      "oper": "OPER_APP",
+                      "args": [
+                        {
+                          "source": "UNKNOWN",
+                          "type": "((b) => Bool)",
+                          "kind": "NameEx",
+                          "name": "__Test"
+                        },
+                        {
+                          "source": "UNKNOWN",
+                          "type": "b",
+                          "kind": "NameEx",
+                          "name": "__e"
+                        }
+                      ]
+                    },
+                    {
+                      "source": "UNKNOWN",
+                      "type": "Seq(b)",
+                      "kind": "OperEx",
+                      "oper": "Sequences!Append",
+                      "args": [
+                        {
+                          "source": "UNKNOWN",
+                          "type": "Seq(b)",
+                          "kind": "NameEx",
+                          "name": "__res"
+                        },
+                        {
+                          "source": "UNKNOWN",
+                          "type": "b",
+                          "kind": "NameEx",
+                          "name": "__e"
+                        }
+                      ]
+                    },
+                    {
+                      "source": "UNKNOWN",
+                      "type": "Seq(b)",
+                      "kind": "NameEx",
+                      "name": "__res"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]

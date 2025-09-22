@@ -1,0 +1,110 @@
+      [
+        {
+          "source": "UNKNOWN",
+          "type": "(((Int -> d), Int, Int) => Seq(d))",
+          "kind": "TlaOperDecl",
+          "name": "FunAsSeq",
+          "formalParams": [
+            {
+              "kind": "OperParam",
+              "name": "__fn",
+              "arity": 0
+            },
+            {
+              "kind": "OperParam",
+              "name": "__len",
+              "arity": 0
+            },
+            {
+              "kind": "OperParam",
+              "name": "__capacity",
+              "arity": 0
+            }
+          ],
+          "isRecursive": false,
+          "body": {
+            "source": "UNKNOWN",
+            "type": "Seq(d)",
+            "kind": "LetInEx",
+            "body": {
+              "source": "UNKNOWN",
+              "type": "Seq(d)",
+              "kind": "OperEx",
+              "oper": "Sequences!SubSeq",
+              "args": [
+                {
+                  "source": "UNKNOWN",
+                  "type": "Seq(d)",
+                  "kind": "OperEx",
+                  "oper": "Apalache!MkSeq",
+                  "args": [
+                    {
+                      "source": "UNKNOWN",
+                      "type": "Int",
+                      "kind": "NameEx",
+                      "name": "__capacity"
+                    },
+                    {
+                      "source": "UNKNOWN",
+                      "type": "((Int) => d)",
+                      "kind": "NameEx",
+                      "name": "__FunAsSeq_elem_ctor"
+                    }
+                  ]
+                },
+                {
+                  "source": "UNKNOWN",
+                  "type": "Int",
+                  "kind": "ValEx",
+                  "value": {
+                    "kind": "TlaInt",
+                    "value": 1
+                  }
+                },
+                {
+                  "source": "UNKNOWN",
+                  "type": "Int",
+                  "kind": "NameEx",
+                  "name": "__len"
+                }
+              ]
+            },
+            "decls": [
+              {
+                "source": "UNKNOWN",
+                "type": "((Int) => d)",
+                "kind": "TlaOperDecl",
+                "name": "__FunAsSeq_elem_ctor",
+                "formalParams": [
+                  {
+                    "kind": "OperParam",
+                    "name": "__i",
+                    "arity": 0
+                  }
+                ],
+                "isRecursive": false,
+                "body": {
+                  "source": "UNKNOWN",
+                  "type": "d",
+                  "kind": "OperEx",
+                  "oper": "FUN_APP",
+                  "args": [
+                    {
+                      "source": "UNKNOWN",
+                      "type": "(Int -> d)",
+                      "kind": "NameEx",
+                      "name": "__fn"
+                    },
+                    {
+                      "source": "UNKNOWN",
+                      "type": "Int",
+                      "kind": "NameEx",
+                      "name": "__i"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]

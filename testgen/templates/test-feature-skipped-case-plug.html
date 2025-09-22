@@ -1,0 +1,48 @@
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved. -->
+{% extends "base-toc.html" %}
+
+{% block title %}
+Skipped feature combinations by {{ feature_role }} feature {{ feature }}
+{% endblock %}
+
+{% block header %}
+Skipped feature combinations by {{ feature_role }} feature <span class="keyword">{{ feature }}</span>
+{% endblock %}
+
+{% block toc %}{{ toc }}{% endblock %}
+
+{% block content %}
+
+  <table class="spec-table">
+  <tr>
+    <th class="nostretch">
+      Id
+    </th>
+    <th>
+      Case Feature
+    </th>
+    <th>
+      Plug Feature
+    </th>
+    <th>
+      Skip Reason
+    </th>
+  </tr>
+  {% for tc in spec %}
+    <tr>
+        <td class="nostretch">
+            <a class="sha1-id" id="{{ tc.id }}" desc="{{ tc.id }}">{{ tc.id }}</a>
+        </td>
+        <td>
+            <span class="keyword">{{ tc.desc.case_feature }}</span>
+        </td>
+        <td>
+            <span class="keyword">{{ tc.desc.plug_feature }}</span>
+        </td>
+        <td>
+            <span class="keyword">{{ tc.reason }}</span>
+        </td>
+    </tr>
+  {% endfor %}
+  </td>
+{% endblock %}

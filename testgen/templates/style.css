@@ -1,0 +1,115 @@
+// SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+.sidebar-lhs {
+    height: 100%;
+    width: 200px;
+    max-width: 200px;
+    min-width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 10px;
+    background-color: #f2f2f2!important;
+}
+
+.sidebar-lhs div {
+    padding: 8px;
+    display: block;
+}
+
+.sidebar-rhs {
+    margin-left: 200px;
+}
+
+.spec-table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.statistics-table table td {
+    /* disable stretching */
+    width: 1%;
+    white-space: nowrap;
+}
+
+.statistics-table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+}
+
+ul {
+    margin-left: 0;
+    padding-left: 20px;
+}
+
+td, th {
+    border: 1px solid #000000;
+    text-align: left;
+    padding: 8px;
+}
+
+.spec-table th {
+    background-color: #CBE59D;
+}
+
+.nostretch {
+    width: 1%;
+    white-space: nowrap;
+}
+
+.spec-table tr:nth-child(even) {
+    background-color: #DDDDDD;
+}
+
+.sha1-id {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: small;
+}
+
+:target {
+    background-color: gold;
+}
+
+h1, h2, h3 {
+    color: #204020;
+}
+
+.sidebar-rhs .main-toc {
+    font-size: larger;
+}
+
+.sidebar-rhs .keyword {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #407040;
+}
+
+.sidebar-rhs .main-toc .keyword, .sidebar-lhs .keyword {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+.sidebar-rhs .main-toc a:link, .sidebar-lhs a:link {
+    color: #409040;
+    text-decoration: none;
+}
+
+.sidebar-rhs .main-toc a:visited, .sidebar-lhs a:visited {
+    color: #409040;
+    text-decoration: none;
+}
+
+.sidebar-rhs .main-toc a:hover, .sidebar-lhs a:hover {
+    color: #4040F0;
+    text-decoration: none;
+}
+
+.sidebar-rhs .main-toc a:active, .sidebar-lhs a:active {
+    color: #404090;
+    text-decoration: none;
+}
+
+.sidebar-rhs .main-toc a:ul, .sidebar-lhs ul {
+    list-style-type: circle;
+}

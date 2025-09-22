@@ -1,0 +1,113 @@
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved. -->
+{% extends "base-toc.html" %}
+
+{% block title %}
+Model Id: {{ model.id }}
+{% endblock %}
+
+{% block header %}
+Model Id: {{ model.id }}
+{% endblock %}
+
+{% block toc %}{{ toc }}{% endblock %}
+
+{% block content %}
+  <table class="spec-table">
+  <tr>
+    <th class="nostretch" >
+      Test Case Back References
+    </th>
+    <th>
+      Cmd Options
+    </th>
+    <th>
+      Execution Result
+    </th>
+    <th>
+      Execution Output/Meta
+    </th>
+  </tr>
+  <tr>
+    <td class="nostretch">
+      <table class="spec-table">
+        <th class="nostretch">
+          Test Case Id
+        </th>
+        {% for tc in model.test_cases %}
+          <tr>
+            <td class="nostretch">
+              {% if 'case_feature' in tc.desc %}
+                <a class="sha1-id" href={{ index_refs[find_workers(tc)].cases[tc.desc.case_feature] }}#{{ tc.id }}>{{ tc.id }}</a>
+              {% elif tc.type == RefAnomalous %}
+                <a class="sha1-id" href=test-anomalous-conditions.html#{{ tc.id }}>{{ tc.id }}</a>
+              {% else %}
+                <a class="sha1-id" href={{ index_refs[find_workers(tc)].symmetry }}#{{ tc.id }}>{{ tc.id }}</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </td>
+    <td>
+      <span class="keyword">{{ ' '.join(model.cmd_options) }}</span>
+    </td>
+    <td>
+      <span class="keyword">{{ model.result }}</span>
+    </td>
+    <td>
+      <ul>
+        <li>
+          <a href=../{{ os.path.join(result_dir, model.id, 'execution_output.log') }}>execution log</a>
+        </li>
+        <li>
+          <a href=../{{ os.path.join(result_dir, model.id, 'execution_result.json') }}>execution result</a>
+        </li>
+        <li>
+          <a href=../{{ os.path.join(result_dir, model.id, 'execution_args.cmd') }}>execution command line</a>
+        </li>
+      </ul>
+    </td>
+  </tr>
+  </td>
+</table>
+<h2>Source Files</h2>
+  <table>
+    <tr>
+      <td>
+        Folder Path
+      </td>
+      <td>
+        <a href=../{{ os.path.join(spec_dir, model.path) }}>{{ model.path }}</a>
+      </td>
+      </tr>
+    <tr>
+      <td>
+        Configuration
+      </td>
+      <td>
+        <a href=../{{ os.path.join(spec_dir, model.path, model.cfg.file) }}>{{ model.cfg.file }}</a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Main Module
+      </td>
+      <td>
+        <a href=../{{ os.path.join(spec_dir, model.path, model.main_module) }}.tla>{{ model.main_module }}.tla</a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Other Modules
+      </td>
+      <td>
+          {% for module in model.modules %}
+            {% if module.name != model.main_module %}
+            <a href=../{{ os.path.join(spec_dir, model.path, module.path, module.name) }}.tla>{{ module.name }}.tla</a><br/>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+  </table>
+{% endblock %}

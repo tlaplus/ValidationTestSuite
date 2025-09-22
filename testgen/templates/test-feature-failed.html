@@ -1,0 +1,103 @@
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved. -->
+{% extends "base-toc.html" %}
+
+{% block title %}
+Failed test cases with explanation
+{% endblock %}
+
+{% block header %}
+Failed test cases with explanation
+{% endblock %}
+
+{% block toc %}{{ toc }}{% endblock %}
+
+{% block content %}
+
+This page is an index of all failed test cases. Every failed test case must have an associated
+explanation. <b>There must be no failed tests without explanation</b>
+
+<h2>
+  Test Cases
+</h2>
+
+  <table class="spec-table">
+  <tr>
+    <th class="nostretch">
+      Id
+    </th>
+    <th>
+      Type
+    </th>
+    <th>
+      Case Feature
+    </th>
+    <th>
+      Plug Feature
+    </th>
+    <th>
+      Check Deadlock
+    </th>
+    <th>
+      Test Failure Explanation
+    </th>
+    <th>
+      Test Models
+    </th>
+  </tr>
+  {% for tc in spec %}
+    <tr>
+          <td class="nostretch">
+            <a class="sha1-id" id="{{ tc.id }}" desc="{{ tc.id }}">{{ tc.id }}</a>
+          </td>
+          <td>
+            {% if tc.type == "ref-tlc" %}
+              TLC with reduction strategy:
+                <ul>
+                  {% if 'feature_case' in tc.desc.reduction_strategy %}
+                  <li>
+                    Case Feature: {{ tc.desc.reduction_strategy.feature_case.replace('\n', '<br>') }}
+                  </li>
+                  {% endif %}
+                  {% if 'feature_plug' in tc.desc.reduction_strategy %}
+                  <li>
+                    Plug Feature: {{ tc.desc.reduction_strategy.feature_plug.replace('\n', '<br>') }}
+                  </li>
+                  {% endif %}
+                  {% if 'configuration' in tc.desc.reduction_strategy %}
+                  <li>
+                    Configuration: {{ tc.desc.reduction_strategy.configuration.replace('\n', '<br>') }}
+                  </li>
+                  {% endif %}
+              </ul>
+            {% else %}
+              Apalache
+            {% endif %}
+          </td>
+          <td>
+            <span class="keyword">{{ tc.desc.case_feature }}</span>
+          </td>
+          <td>
+            <span class="keyword">{{ tc.desc.plug_feature }}</span>
+          </td>
+          <td>
+            <span class="keyword">{{ tc.desc.check_deadlock }}</span>
+          </td>
+            <td>
+              <span class="keyword">
+                {{ results[tc.id].explanation }}
+              </span>
+            </td>
+            <td>
+                <ul>
+                <li>
+                    <a href=test-model-{{tc.tlc.id}}.html>Model Under Test</a>: <span class="keyword">{{ results[tc.id].tlc_status }}</span>
+                </li>
+                <li>
+                    <a href=test-model-{{tc.ref.id}}.html>Equivalent Model</a>: <span class="keyword">{{ results[tc.id].ref_status }}</span>
+                </li>
+                </ul>
+            </td>
+      </tr>
+  {% endfor %}
+  </td>
+  {% endblock %}

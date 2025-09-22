@@ -1,0 +1,43 @@
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved. -->
+<div class="report-sidebar">
+    <h1>Index</h1>
+
+    <hr/>
+    <ul>
+        <li>
+            <a href=test-toc.html>Introduction</a>
+        </li>
+    </ul>
+    <hr/>
+    <ul>
+        <li>
+            <a href=test-feature-skipped.html>Skipped feature combinations</a>
+        </li>
+        <li>
+            <a href=test-feature-failed.html>Failed test cases</a>
+        </li>
+        <li>
+            <a href=test-feature-workers_1.html>Tests by feature combinations</a>
+        </li>
+        <li>
+            <a href=test-symmetry-workers_1.html><span class="keyword">SYMMETRY</span> tests</a>
+        </li>
+        <li>
+            <a href=test-anomalous-conditions.html>Tests under anomalous conditions</a>
+        </li>
+    </ul>
+    <hr/>
+    {% for w in workers %}
+        {% if w != '1' %}
+        <ul>
+            <li>
+                <a href=test-feature-workers_{{ w }}.html>Tests by feature combinations: <span class="keyword">-workers {{ w }}</a>
+            </li>
+            <li>
+                <a href=test-symmetry-workers_{{ w }}.html><span class="keyword">SYMMETRY</span> tests: <span class="keyword">-workers {{ w }}</a>
+            </li>
+        </ul>
+        <hr/>
+        {% endif %}
+    {% endfor %}
+</div>

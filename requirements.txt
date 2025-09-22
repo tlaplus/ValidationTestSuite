@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+-i https://pypi.org/simple
+
+Jinja2==3.1.2
+pyyaml==6.0

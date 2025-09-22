@@ -1,0 +1,764 @@
+# SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+explanations:
+    - desc: {'case_feature': 'ChooseInDef', 'plug_feature': 'InDef2', 'check_deadlock': False}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        Apalache does not support tuple syntax in CHOOSE, e.g. CHOOSE <<u, v>> \in S
+
+    - desc: {'case_feature': 'ChooseInDef', 'plug_feature': 'InDef2', 'check_deadlock': True}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        Apalache does not support tuple syntax in CHOOSE, e.g. CHOOSE <<u, v>> \in S
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'BagSubsetEqBag', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'BagSubsetEqBag', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'BagBagIn', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'BagBagIn', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'Equivalence', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'Equivalence', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'SubsetEq', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'SubsetEq', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'NumLe', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'NumLe', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'NumLt', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'NumLt', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'Prime', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'Prime', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'NotIn', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'NotIn', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'Ne', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'Ne', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'Not', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'Not', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'And', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'And', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'BoolFalse', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Choose', 'plug_feature': 'BoolFalse', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'SeqTail', 'plug_feature': 'SeqTail', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        Tail of empty sequence results in error in TLC. Apalache is unable to detect such an error and instead returns arbitrary value
+
+    - desc: {'case_feature': 'SeqTail', 'plug_feature': 'SeqTail', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        Tail of empty sequence results in error in TLC. Apalache is unable to detect such an error and instead returns arbitrary value
+
+    - desc: {'case_feature': 'SeqTail', 'plug_feature': 'TupleEmpty', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        Tail of empty sequence results in error in TLC. Apalache is unable to detect such an error and instead returns arbitrary value
+
+    - desc: {'case_feature': 'SeqTail', 'plug_feature': 'TupleEmpty', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        Tail of empty sequence results in error in TLC. Apalache is unable to detect such an error and instead returns arbitrary value
+
+    - desc: {'case_feature': 'SeqHead', 'plug_feature': 'SeqTail', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        Head of empty sequence results in error in TLC. Apalache is unable to detect such an error and instead returns arbitrary value
+
+    - desc: {'case_feature': 'SeqHead', 'plug_feature': 'SeqTail', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        Head of empty sequence results in error in TLC. Apalache is unable to detect such an error and instead returns arbitrary value
+
+    - desc: {'case_feature': 'SeqHead', 'plug_feature': 'TupleEmpty', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        Head of empty sequence results in error in TLC. Apalache is unable to detect such an error and instead returns arbitrary value
+
+    - desc: {'case_feature': 'SeqHead', 'plug_feature': 'TupleEmpty', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        Head of empty sequence results in error in TLC. Apalache is unable to detect such an error and instead returns arbitrary value
+
+    - desc: {'case_feature': 'SeqSubSeq', 'plug_feature': 'SeqTail', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC requires the second argument of SeqSubSeq to be in domain of the sequence and returns an error otherwise. Apalache always returns some sequence
+
+    - desc: {'case_feature': 'SeqSubSeq', 'plug_feature': 'SeqTail', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC requires the second argument of SeqSubSeq to be in domain of the sequence and returns an error otherwise. Apalache always returns some sequence
+
+    - desc: {'case_feature': 'SeqSubSeq', 'plug_feature': 'NumMod', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC requires the second argument of SeqSubSeq to be in domain of the sequence and returns an error otherwise. Apalache always returns some sequence
+
+    - desc: {'case_feature': 'SeqSubSeq', 'plug_feature': 'NumMod', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC requires the second argument of SeqSubSeq to be in domain of the sequence and returns an error otherwise. Apalache always returns some sequence
+
+    - desc: {'case_feature': 'SeqSubSeq', 'plug_feature': 'NumUnaryMinus', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC requires the second argument of SeqSubSeq to be in domain of the sequence and returns an error otherwise. Apalache always returns some sequence
+
+    - desc: {'case_feature': 'SeqSubSeq', 'plug_feature': 'NumUnaryMinus', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC requires the second argument of SeqSubSeq to be in domain of the sequence and returns an error otherwise. Apalache always returns some sequence
+
+    - desc: {'case_feature': 'SeqSubSeq', 'plug_feature': 'NumZero', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC requires the second argument of SeqSubSeq to be in domain of the sequence and returns an error otherwise. Apalache always returns some sequence
+
+    - desc: {'case_feature': 'SeqSubSeq', 'plug_feature': 'NumZero', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC requires the second argument of SeqSubSeq to be in domain of the sequence and returns an error otherwise. Apalache always returns some sequence
+
+    - desc: {'case_feature': 'SeqSubSeq', 'plug_feature': 'TupleEmpty', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC requires the second argument of SeqSubSeq to be in domain of the sequence and returns an error otherwise. Apalache always returns some sequence
+
+    - desc: {'case_feature': 'SeqSubSeq', 'plug_feature': 'TupleEmpty', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC requires the second argument of SeqSubSeq to be in domain of the sequence and returns an error otherwise. Apalache always returns some sequence
+
+    - desc: {'case_feature': 'SeqSeq', 'plug_feature': 'StringSet', 'check_deadlock': False}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache does not support STRING (a set of all strings)
+
+    - desc: {'case_feature': 'SeqSeq', 'plug_feature': 'StringSet', 'check_deadlock': True}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache does not support STRING (a set of all strings)
+
+    - desc: {'case_feature': 'SeqSeq', 'plug_feature': 'IntSet', 'check_deadlock': False}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache is unable to check the model, SeqSeq replacement does not work with infinite sets (Int)
+
+    - desc: {'case_feature': 'SeqSeq', 'plug_feature': 'IntSet', 'check_deadlock': True}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache is unable to check the model, SeqSeq replacement does not work with infinite sets (Int)
+
+    - desc: {'case_feature': 'SeqSeq', 'plug_feature': 'NatSet', 'check_deadlock': False}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache is unable to check the model, SeqSeq replacement does not work with infinite sets (Nat)
+
+    - desc: {'case_feature': 'SeqSeq', 'plug_feature': 'NatSet', 'check_deadlock': True}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache is unable to check the model, SeqSeq replacement does not work with infinite sets (Nat)
+
+    - desc: {'case_feature': 'Unchanged', 'plug_feature': 'Variable', 'check_deadlock': False}
+      result:
+        tlc: violation
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Specification uses UNCHANGED twice in the
+        same action and Apalache complains about spurious manual assignment, because it
+        is unable to detect that the second usage is just no-op
+
+    - desc: {'case_feature': 'Unchanged', 'plug_feature': 'Variable', 'check_deadlock': True}
+      result:
+        tlc: violation
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Specification uses UNCHANGED twice in the
+        same action and Apalache complains about spurious manual assignment, because it
+        is unable to detect that the second usage is just no-op
+
+    - desc: {'case_feature': 'Lambda', 'plug_feature': 'Boxed', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        TLC does not support boxed operator in LAMBDA expressions and reports an error
+
+    - desc: {'case_feature': 'Lambda', 'plug_feature': 'Boxed', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        TLC does not support boxed operator in LAMBDA expressions and reports an error
+
+    - desc: {'case_feature': 'Enabled', 'plug_feature': 'Prime', 'check_deadlock': False}
+      result:
+        tlc: violation
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache does not support ENABLED operator
+        and if used with prime operator it is irreducible to equivalent ENABLED-free form
+
+    - desc: {'case_feature': 'Enabled', 'plug_feature': 'Prime', 'check_deadlock': True}
+      result:
+        tlc: violation
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache does not support ENABLED operator
+        and if used with prime operator it is irreducible to equivalent ENABLED-free form
+
+    - desc: {'case_feature': 'InstanceNamedWith', 'plug_feature': 'InstanceWith', 'check_deadlock': False}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache has a bug, which prevents it from
+        type checking the specification
+
+    - desc: {'case_feature': 'InstanceNamedWith', 'plug_feature': 'InstanceWith', 'check_deadlock': True}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache has a bug, which prevents it from
+        type checking the specification
+
+    - desc: {'case_feature': 'InstanceNamedWith', 'plug_feature': 'Instance', 'check_deadlock': False}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache has a bug, which prevents it from
+        type checking the specification
+
+    - desc: {'case_feature': 'InstanceNamedWith', 'plug_feature': 'Instance', 'check_deadlock': True}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache has a bug, which prevents it from
+        type checking the specification
+
+    - desc: {'case_feature': 'InstanceNamed', 'plug_feature': 'InstanceWith', 'check_deadlock': False}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache has a bug, which prevents it from
+        type checking the specification
+
+    - desc: {'case_feature': 'InstanceNamed', 'plug_feature': 'InstanceWith', 'check_deadlock': True}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache has a bug, which prevents it from
+        type checking the specification
+
+    - desc: {'case_feature': 'InstanceNamed', 'plug_feature': 'Instance', 'check_deadlock': False}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache has a bug, which prevents it from
+        type checking the specification
+
+    - desc: {'case_feature': 'InstanceNamed', 'plug_feature': 'Instance', 'check_deadlock': True}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache has a bug, which prevents it from
+        type checking the specification
+
+    - desc: {'case_feature': 'ConstantRank1', 'plug_feature': 'ConstantRank1', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC doesn't allow to use constant as a replacement value for another constant in CFG, even though
+        the former constant is fully defined at this point
+
+    - desc: {'case_feature': 'ConstantRank1', 'plug_feature': 'ConstantRank1', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC doesn't allow to use constant as a replacement value for another constant in CFG, even though
+        the former constant is fully defined at this point
+
+    - desc: {'case_feature': 'Def1Recursive', 'plug_feature': 'Boxed', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        There is a known TLC bug (https://github.com/tlaplus/tlaplus/issues/720), which causes TLC to report
+        an error, when a parameterized operator is used to specify a property
+
+    - desc: {'case_feature': 'Def1Recursive', 'plug_feature': 'Boxed', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        There is a known TLC bug (https://github.com/tlaplus/tlaplus/issues/720), which causes TLC to report
+        an error, when a parameterized operator is used to specify a property
+
+    - desc: {'case_feature': 'Def2', 'plug_feature': 'Boxed', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        There is a known TLC bug (https://github.com/tlaplus/tlaplus/issues/720), which causes TLC to report
+        an error, when a parameterized operator is used to specify a property
+
+    - desc: {'case_feature': 'Def2', 'plug_feature': 'Boxed', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        There is a known TLC bug (https://github.com/tlaplus/tlaplus/issues/720), which causes TLC to report
+        an error, when a parameterized operator is used to specify a property
+
+    - desc: {'case_feature': 'Def1', 'plug_feature': 'Boxed', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        There is a known TLC bug (https://github.com/tlaplus/tlaplus/issues/720), which causes TLC to report
+        an error, when a parameterized operator is used to specify a property
+
+    - desc: {'case_feature': 'Def1', 'plug_feature': 'Boxed', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        There is a known TLC bug (https://github.com/tlaplus/tlaplus/issues/720), which causes TLC to report
+        an error, when a parameterized operator is used to specify a property
+
+    - desc: {'case_feature': 'LetDef0', 'plug_feature': 'Boxed', 'check_deadlock': False, 'reduction_strategy': {'feature_case': 'LET definitions are reduced to global definitions'}}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        TLC expects temporal properties to be specified directly without using operators or LET expression.
+        Otherwise it reports an error
+
+    - desc: {'case_feature': 'LetDef0', 'plug_feature': 'Boxed', 'check_deadlock': True, 'reduction_strategy': {'feature_case': 'LET definitions are reduced to global definitions'}}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        TLC expects temporal properties to be specified directly without using operators or LET expression.
+        Otherwise it reports an error
+
+    - desc: {'case_feature': 'NumPlus', 'plug_feature': 'NumMaxInt', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC internally represents integers as 32 bit numbers and reports an error if the value is overflowed.
+        Apalache is unable to detect overflows
+
+    - desc: {'case_feature': 'NumPlus', 'plug_feature': 'NumMaxInt', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC internally represents integers as 32 bit numbers and reports an error if the value is overflowed.
+        Apalache is unable to detect overflows
+
+    - desc: {'case_feature': 'Except0', 'plug_feature': 'SeqAppend', 'check_deadlock': False}
+      result:
+        tlc: success
+        ref: violation
+      explanation: >-
+        Both results are correct. The reason they are different is CHOOSE operator, which is allowed to return
+        different values for TLC and Apalache if applied to a set with more than one element. In this case,
+        Append function from Sequences standard module is used to add one more element into non empty sequence
+
+    - desc: {'case_feature': 'Except0', 'plug_feature': 'SeqAppend', 'check_deadlock': True}
+      result:
+        tlc: success
+        ref: violation
+      explanation: >-
+        Both results are correct. The reason they are different is CHOOSE operator, which is allowed to return
+        different values for TLC and Apalache if applied to a set with more than one element. In this case,
+        Append function from Sequences standard module is used to add one more element into non empty sequence
+
+    - desc: {'case_feature': 'Except0', 'plug_feature': 'SeqTail', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        Except0 uses CHOOSE to select an argument. CHOOSE has different semantics in TLC and Apalache if there is
+        no element in the set, which satisfies the criterion. TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Except0', 'plug_feature': 'SeqTail', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        Except0 uses CHOOSE to select an argument. CHOOSE has different semantics in TLC and Apalache if there is
+        no element in the set, which satisfies the criterion. TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Except0', 'plug_feature': 'SeqConcat', 'check_deadlock': False}
+      result:
+        tlc: success
+        ref: violation
+      explanation: >-
+        Both results are correct. The reason they are different is CHOOSE operator, which is allowed to return
+        different values for TLC and Apalache if applied to a set with more than one element. In this case,
+        SeqConcat function from Sequences standard module is used to add one more element into non empty sequence
+
+    - desc: {'case_feature': 'Except0', 'plug_feature': 'SeqConcat', 'check_deadlock': True}
+      result:
+        tlc: success
+        ref: violation
+      explanation: >-
+        Both results are correct. The reason they are different is CHOOSE operator, which is allowed to return
+        different values for TLC and Apalache if applied to a set with more than one element. In this case,
+        SeqConcat function from Sequences standard module is used to add one more element into non empty sequence
+
+    - desc: {'case_feature': 'Except0', 'plug_feature': 'DefFunRecursive', 'check_deadlock': False}
+      result:
+        tlc: success
+        ref: violation
+      explanation: >-
+        TLC result is correct. The reason they are different is CHOOSE operator, which is allowed to return
+        different values for TLC and Apalache if applied to a set with more than one element. Moreover, in this case,
+        Apalache produces result, which violates TLA+ CHOOSE semantics
+
+    - desc: {'case_feature': 'Except0', 'plug_feature': 'DefFunRecursive', 'check_deadlock': True}
+      result:
+        tlc: success
+        ref: violation
+      explanation: >-
+        TLC result is correct. The reason they are different is CHOOSE operator, which is allowed to return
+        different values for TLC and Apalache if applied to a set with more than one element. Moreover, in this case,
+        Apalache produces result, which violates TLA+ CHOOSE semantics
+
+    - desc: {'case_feature': 'Except0', 'plug_feature': 'TupleEmpty', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'Except0', 'plug_feature': 'TupleEmpty', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        CHOOSE has different semantics in TLC and Apalache if there is no element in the set, which satisfies the criterion.
+        TLC reports an error and Apalache returns arbitrary value.
+
+    - desc: {'case_feature': 'FunApp', 'plug_feature': 'SeqTail', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        SeqTail produces empty sequence and TLC reports an error if there is an attempt to apply a function with value not
+        from its domain. Apalache is unable to detect such situation and returns arbitrary value.
+
+    - desc: {'case_feature': 'FunApp', 'plug_feature': 'SeqTail', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        SeqTail produces empty sequence and TLC reports an error if there is an attempt to apply a function with value not
+        from its domain. Apalache is unable to detect such situation and returns arbitrary value.
+
+    - desc: {'case_feature': 'FunApp', 'plug_feature': 'TupleEmpty', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC reports an error if there is an attempt to apply a function with value not from its domain. Apalache is unable
+        to detect such situation and returns arbitrary value.
+
+    - desc: {'case_feature': 'FunApp', 'plug_feature': 'TupleEmpty', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC reports an error if there is an attempt to apply a function with value not from its domain. Apalache is unable
+        to detect such situation and returns arbitrary value.
+
+    - desc: {'case_feature': 'NotIn', 'plug_feature': 'StringSet', 'check_deadlock': False}
+      result:
+        tlc: violation
+        ref: crash
+      explanation: >-
+        TLC result is correct. Apalache does not support STRING expression (a set of all strings)
+
+    - desc: {'case_feature': 'NotIn', 'plug_feature': 'StringSet', 'check_deadlock': True}
+      result:
+        tlc: violation
+        ref: crash
+      explanation: >-
+        TLC result is correct. Apalache does not support STRING expression (a set of all strings)
+
+    - desc: {'case_feature': 'In', 'plug_feature': 'StringSet', 'check_deadlock': False}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC result is correct. Apalache does not support STRING expression (a set of all strings)
+
+    - desc: {'case_feature': 'In', 'plug_feature': 'StringSet', 'check_deadlock': True}
+      result:
+        tlc: success
+        ref: crash
+      explanation: >-
+        TLC result is correct. Apalache does not support STRING expression (a set of all strings)
+
+    - desc: {'case_feature': 'AndProp', 'plug_feature': 'BoolFalse', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        TLC reports an error if it sees trivially false property. Whereas Apalache returns violation
+
+    - desc: {'case_feature': 'AndProp', 'plug_feature': 'BoolFalse', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: violation
+      explanation: >-
+        TLC reports an error if it sees trivially false property. Whereas Apalache returns violation
+
+    - desc: {'case_feature': 'SeqSubSeq', 'plug_feature': 'BagCopiesIn', 'check_deadlock': False}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC requires the second argument of SeqSubSeq to be in domain of the sequence, which doesn't
+        include zero, and returns an error otherwise. BagCopiesIn returns zero, because there no such
+        value in the bag, therefore TLC reports error. Apalache always returns some sequence and doesn't
+        crash in such situations
+
+    - desc: {'case_feature': 'SeqSubSeq', 'plug_feature': 'BagCopiesIn', 'check_deadlock': True}
+      result:
+        tlc: crash
+        ref: success
+      explanation: >-
+        TLC requires the second argument of SeqSubSeq to be in domain of the sequence, which doesn't
+        include zero, and returns an error otherwise. BagCopiesIn returns zero, because there no such
+        value in the bag, therefore TLC reports error. Apalache always returns some sequence and doesn't
+        crash in such situations

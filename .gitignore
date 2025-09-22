@@ -1,0 +1,14 @@
+**/*.toolbox
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.mypy_cache
+.tmp
+.coverage
+tmp
+.out
+*.sandbox
+cases*
+.cache
+0
+plc
