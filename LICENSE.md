@@ -1,5 +1,3 @@
-<!--
-SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 SPDX-License-Identifier: Apache-2.0
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,18 +11,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
--->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <head>
-    {% block head %}
-      <link rel="stylesheet" href="style.css" type="text/css" />
-      <title>{% block title %}{% endblock %}</title>
-    {% endblock %}
-  </head>
-  <body>
-    {% block body %}{% endblock %}
-  </body>
-</html>
