@@ -1,0 +1,70 @@
+name: Validation Test Suite Report Generation
+on:
+  repository_dispatch:
+    types: [tlaplus-dispatch]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: #ubuntu-latest
+      group: ubuntu-latest-beefy
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Install python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      - name: Install Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: adopt
+          java-version: 17
+      - name: Install testgen dependencies
+        run: pip install -r requirements.txt
+      - name: Configure App armor profile to allow testgen to use bubblewrap ## https://github.com/DevToys-app/DevToys/issues/1198#issuecomment-2985517203
+        run: |
+            sudo apt-get update && sudo apt-get install -y bubblewrap uidmap apparmor-profiles apparmor-profiles-extra
+            sudo ln -s /usr/share/apparmor/extra-profiles/bwrap-userns-restrict /etc/apparmor.d/bwrap
+            sudo apparmor_parser /etc/apparmor.d/bwrap
+            bwrap --ro-bind / / --unshare-user --unshare-ipc echo "bwrap successfully configured"
+      - name: Run testgen
+        run: |
+            python -m testgen -o reports/ -s -e --html -x explanation.yaml -w $(nproc)
+      - name: Upload report to https://dl.tlapl.us/validation-test-suite for easy access.
+        if: always()
+        uses: burnett01/rsync-deployments@7.1.0
+        with:
+          switches: -avzr --delete
+          path: reports/
+          remote_path: validation-test-suite/1.7.2/
+          remote_host: upload.tlapl.us
+          remote_user: github
+          remote_key: ${{ secrets.INRIA_SSH_PRIVKEY }}
+      - name: Compress reports before archiving.
+        if: always()
+        run: |
+            zip -r reports.zip reports/
+      - name: Archive generated reports as workflow artifact.
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          include-hidden-files: true
+          name: TLAplus-Validation-Test-Suite-Report
+          path: |
+            reports.zip
+      - name: Archive generated reports as GitHub Release.
+        if: always()
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: 'sha-${{ github.sha }}'
+          name: 'TLA+ Validation Test Suite Report (git sha: ${{ github.sha }})'
+          files: reports.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
