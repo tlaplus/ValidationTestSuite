@@ -26,6 +26,8 @@ jobs:
         with:
           distribution: adopt
           java-version: 17
+      - name: Get (nightly) TLC
+        run: wget https://nightly.tlapl.us/dist/tla2tools.jar -O tools/1.8.0/tla2tools.jar
       - name: Install testgen dependencies
         run: pip install -r requirements.txt
       - name: Configure App armor profile to allow testgen to use bubblewrap ## https://github.com/DevToys-app/DevToys/issues/1198#issuecomment-2985517203
@@ -43,7 +45,7 @@ jobs:
         with:
           switches: -avzr --delete
           path: reports/
-          remote_path: validation-test-suite/1.7.2/
+          remote_path: validation-test-suite/1.8.0/
           remote_host: upload.tlapl.us
           remote_user: github
           remote_key: ${{ secrets.INRIA_SSH_PRIVKEY }}

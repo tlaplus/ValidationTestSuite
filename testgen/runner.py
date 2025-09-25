@@ -72,7 +72,7 @@ tmp_dir = None
 def setup():
     global tlc_jar, apalache_jar, tmp_dir, jacoco_jar
     working_dir = os.getcwd()
-    tlc_jar = os.path.join(working_dir, 'tools', '1.7.2', 'tla2tools.jar')
+    tlc_jar = os.path.join(working_dir, 'tools', '1.8.0', 'tla2tools.jar')
     apalache_jar = os.path.join(working_dir, 'tools', 'apalache-0.28.0.jar')
     jacoco_jar = os.path.join(working_dir, 'tools', 'jacoco-0.8.8', 'jacocoagent.jar')
 
