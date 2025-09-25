@@ -28,7 +28,7 @@ SOURCES="
 java \
     -jar ${TOOL_DIR}/jacoco-0.8.8/jacococli.jar \
     report $1 \
-    --classfiles ${TOOL_DIR}/1.7.2/tla2tools.jar \
+    --classfiles ${TOOL_DIR}/1.8.0/tla2tools.jar \
     --html $1.report \
     --name the-report \
     ${SOURCES}
