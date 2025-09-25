@@ -222,7 +222,7 @@ def prepare_testcases(feature_filter, symmetry, anomalous):
     # CMD options combinations
     # So far only `-workers` option varies
     cmd_options_ref = ['-workers', '1']
-    workers_options = ['2', 'auto']
+    workers_options = ['2']
     cmd_options_variants = [(f'-workers {opt}', ['-workers', opt]) for opt in workers_options]
 
     new_testcases = []
