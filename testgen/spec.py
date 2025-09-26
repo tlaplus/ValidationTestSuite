@@ -22,6 +22,13 @@ from .testcase import *
 from .symmetry import *
 from .anomalous import anomalous_cases
 
+WORKERS_1 = '1'
+WORKERS_2 = '2'
+WORKERS_AUTO = 'auto'
+
+# To reduce number of test cases, we exclude WORKERS_AUTO
+workers_options = [WORKERS_1, WORKERS_2]
+
 @dataclass
 class FeatureId:
     name: str
@@ -215,9 +222,8 @@ def prepare_testcases(feature_filter, symmetry, anomalous):
 
     # CMD options combinations
     # So far only `-workers` option varies
-    cmd_options_ref = ['-workers', '1']
-    workers_options = ['2']
-    cmd_options_variants = [(f'-workers {opt}', ['-workers', opt]) for opt in workers_options]
+    cmd_options_ref = ['-workers', WORKERS_1]
+    cmd_options_variants = [(f'-workers {opt}', ['-workers', opt]) for opt in workers_options if opt != WORKERS_1]
 
     new_testcases = []
 

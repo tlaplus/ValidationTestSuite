@@ -225,8 +225,6 @@ if __name__ == '__main__':
     try:
         main()
     except Exception as error:
-        if debug:
-            logging.exception(error)
-        else:
-            logging.error(error)
+        logging.error(f"Uexpected error: {error}")
+        logging.exception(error)
         exit(1)
