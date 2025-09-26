@@ -16,6 +16,7 @@
 import os
 import json
 from jinja2 import Environment, FileSystemLoader
+from .spec import workers_options, WORKERS_1
 from .testcasedefs import *
 
 def get_template_path():
@@ -70,12 +71,6 @@ def calculate_statistics(spec, results):
         'failed_unexplained' : failed_unexplained,
     }
 
-WORKERS_1 = '1'
-WORKERS_2 = '2'
-WORKERS_AUTO = 'auto'
-
-workers = [WORKERS_1, WORKERS_2, WORKERS_AUTO]
-
 class Index:
     def __init__(self):
         self.cases = {}
@@ -95,7 +90,7 @@ class IndexSkippedRefs:
 
 def find_workers(tc):
     options = tc['tlc']['cmd_options']
-    for w in workers:
+    for w in workers_options:
         if w in options:
             return w
     assert False, 'Non-reachable code'
@@ -283,13 +278,13 @@ def generate_failed_html(env, html_dir, spec, results, toc):
 
 def generate_index_html(env, html_dir, index, results, toc):
     index_refs = {}
-    for w in workers:
+    for w in workers_options:
         index_refs[w] = generate_index_workers_html(env, html_dir, index, w, results, toc)
 
     return index_refs
 
 def generate_feature_toc(env, html_dir, index_refs, features, toc):
-    for w in workers:
+    for w in workers_options:
         template_file = "test-feature.html"
         template = env.get_template(template_file)
         content = template.render(
@@ -322,7 +317,7 @@ def generate_main_html(env, html_dir, spec, results, toc):
 
         template_file = "test-toc.html"
         template = env.get_template(template_file)
-        content = template.render(workers = workers, statistics = statistics, toc = toc)
+        content = template.render(workers = workers_options, statistics = statistics, toc = toc)
 
         html_file = template_file
         save_file(os.path.join(html_dir, html_file), content)
@@ -330,7 +325,8 @@ def generate_main_html(env, html_dir, spec, results, toc):
 def get_index_toc_html(env):
         template_file = "test-side-toc.html"
         template = env.get_template(template_file)
-        return template.render(workers = workers)
+        return template.render(workers = workers_options
+)
 
 def add_model(models, tc, model, result):
     id = model['id']
