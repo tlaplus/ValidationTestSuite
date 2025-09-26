@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2022-2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -365,7 +365,7 @@ class AndMultiLineF(Feature):
         return True
 
     def reduction_strategy(self):
-        return "\n  /\\ A\n  /\\ B\n== (A /\ B)"
+        return "\n  /\\ A\n  /\\ B\n== (A /\\ B)"
 
     # What kind is expected to plug
     def kind(self):
@@ -507,7 +507,7 @@ class OrF(Feature):
         return True
 
     def reduction_strategy(self):
-        return "A \/ B == ~(~A /\ ~B)"
+        return R"A \/ B == ~(~A /\ ~B)"
 
     # What kind is expected to plug
     def kind(self):
@@ -555,7 +555,7 @@ class OrMultiLineF(Feature):
         return True
 
     def reduction_strategy(self):
-        return "\n  \\/ A\n  \\/ B\n== (A \/ B)"
+        return "\n  \\/ A\n  \\/ B\n== (A \\/ B)"
 
     # What kind is expected to plug
     def kind(self):
@@ -2855,7 +2855,7 @@ class Cross3F(Feature):
         return expr
 
 def SetOfFunctions(name):
-    return UninterpretedDef(r'''
+    return UninterpretedDef(R'''
 %s(D, R) ==
     LET
         F[n \in 0..Cardinality(D)] ==
@@ -2882,7 +2882,7 @@ class FunSetF(Feature):
         return True
 
     def reduction_strategy(self):
-        return r"For finite R replace [D -> R] with explicit function set enumeration; for infinite R replace (f \in [D -> R]) with conjunction (DOMAIN f = D /\ (\A x \in D : f[x] \in R))"
+        return R"For finite R replace [D -> R] with explicit function set enumeration; for infinite R replace (f \in [D -> R]) with conjunction (DOMAIN f = D /\ (\A x \in D : f[x] \in R))"
 
     def kind(self):
         return simple_kinds
@@ -2979,7 +2979,7 @@ class RecordSetF(Feature):
         return True
 
     def reduction_strategy(self):
-        return "For finite R replace [field : R] with explicit function set enumeration; for infinite R replace (f \in [field : R]) with conjunction (DOMAIN f = {'field'} /\ f['field'] \in R)"
+        return R"For finite R replace [field : R] with explicit function set enumeration; for infinite R replace (f \in [field : R]) with conjunction (DOMAIN f = {'field'} /\ f['field'] \in R)"
 
     def kind(self):
         return simple_kinds
@@ -3119,7 +3119,7 @@ class SubsetEqF(Feature):
 # TODO: This is not used anymore, but still here as a reference
 # for AST version
 def SetOfSets(name):
-    return UninterpretedDef(r'''
+    return UninterpretedDef(R'''
 \* @type: Set(a) => Set(Set(a));
 %s(D) ==
     LET
@@ -3818,7 +3818,7 @@ class RangeF(Feature):
         return True
 
     def reduction_strategy(self):
-        return "n..m is replaced with  { x \in { n, n + 1, ... } : x <= m }; it falls back to crash (through CHOOSE Q : FALSE) if m is too big: this crash forces to do manual test review"
+        return R"n..m is replaced with  { x \in { n, n + 1, ... } : x <= m }; it falls back to crash (through CHOOSE Q : FALSE) if m is too big: this crash forces to do manual test review"
 
     def kind(self):
         return simple_kinds

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2022-2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ def etalon_cfg(deadlock, invariant = False, property = False):
     inv = "INVARIANT Inv" if invariant else ""
     prop = "PROPERTY Prop" if property else ""
 
-    return f"""
+    return fR"""
 \* CONFIG
 
 CONSTANT

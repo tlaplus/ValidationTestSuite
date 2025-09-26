@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2022-2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +36,7 @@ class FeatureId:
     feature: Feature
 
 feature_ids = [
-    ("OneLineComment", "\* one line comment", OneLineCommentF()),
+    ("OneLineComment", R"\* one line comment", OneLineCommentF()),
     ("MultiLineComment", "(* multiline line comment *)", MultiLineCommentF()),
     ("BoolTrue", 'TRUE', BoolF(True)),
     ("BoolFalse", 'FALSE', BoolF(False)),
@@ -69,7 +69,7 @@ feature_ids = [
     ("Forall", r"\A x \in S : <expr>", QuantorF(ForAll)),
     ("ExistsInDef", r"\E <in-def-decl> : P", QuantorInDefF(Exists)),
     ("ForallInDef", r"\A <in-def-decl> : P", QuantorInDefF(ForAll)),
-    ("Choose", "CHOOSE x \in S : <expr>", ChooseF()),
+    ("Choose", R"CHOOSE x \in S : <expr>", ChooseF()),
     ("ChooseInDef", "CHOOSE <in-def-decl> : P", ChooseInDefF()),
     ("Record", "[field0 |-> <expr>]", RecordF()),
     ("Tuple", "<<x, y>>", TupleF()),
@@ -149,7 +149,7 @@ feature_ids = [
     ("StringEmpty", 'Empty string ""', StrF('')),
     ("String", '"Q"', StrF('Q')),
     ("SeqLen", 'Len(<<...>>) | Len("abc")', SeqLenF()),
-    ("SeqConcat", '<<..>> \o <<..>> | "ab" \o "bc")', SeqConcatF()),
+    ("SeqConcat", R'<<..>> \o <<..>> | "ab" \o "bc")', SeqConcatF()),
     ("SeqSeq", 'Seq({..})', SeqSeqF()),
     ("NatSet", 'Nat', NumSetF(is_nat = True)),
     ("IntSet", 'Int', NumSetF(is_nat = False)),
@@ -169,7 +169,7 @@ feature_ids = [
     ("BagAddBag", 'B0 (+) B1', BagBagBinOpF(BinOpId.BagAdd)),
     ("BagBagSub", 'B0 (-) B1', BagBagBinOpF(BinOpId.BagSub)),
     ("BagCopiesIn", 'CopiesIn(e, B)', BagCopiesInF()),
-    ("BagSubsetEqBag", r'B0 \sqsubseteq B1', BagBagSubsetEqF()),
+    ("BagSubsetEqBag", R'B0 \sqsubseteq B1', BagBagSubsetEqF()),
     ("BagBagUnion", 'BagUnion(S)', BagBagUnionF()),
     ("BagBagCardinality", 'BagCardinality(B)', BagBagCardinalityF()),
     ("BagBagOfAll", 'BagOfAll(Op(_), B', BagBagOfAllF()),
