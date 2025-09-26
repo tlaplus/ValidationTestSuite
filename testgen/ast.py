@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2022-2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -170,7 +170,7 @@ def set_type_annotations(ann):
     type_annotations = ann
 
 def type_ann_wrap(typeStr):
-    return f'\* @type: {typeStr};'
+    return fR'\* @type: {typeStr};'
 
 def type_ann(type):
     return type_ann_wrap(type.apalache())
@@ -211,7 +211,7 @@ class OneLineComment:
         self.comment = comment
 
     def pretty(self):
-        return f'\\* {self.comment}'
+        return fR'\* {self.comment}'
 
     def ir(self):
         return []
@@ -762,7 +762,7 @@ class InDef0:
     def pretty(self):
         args = []
         for vars, expr in self.args:
-            args.append(f'{commas(vars)} \in {expr.pretty()}')
+            args.append(fR'{commas(vars)} \in {expr.pretty()}')
         return commas(args)
 
     def ir(self):
@@ -789,7 +789,7 @@ class InDef1:
         return self.vars_internal
 
     def pretty(self):
-        return f'<<{commas(self.vars_internal)}>> \in {self.expr.pretty()}'
+        return fR'<<{commas(self.vars_internal)}>> \in {self.expr.pretty()}'
 
     def ir(self):
         return [Tuple(*(LocalRef(v) for v in self.vars_internal)).ir(), self.expr.ir()]
@@ -800,7 +800,7 @@ class Fun:
         self.expr = expr
 
     def pretty(self):
-        return f'[{self.indef.pretty()} |-> {self.expr.pretty()}]'
+        return fR'[{self.indef.pretty()} |-> {self.expr.pretty()}]'
 
     def ir(self):
         fun = {
@@ -821,7 +821,7 @@ class DefFun:
         self.expr = expr
 
     def pretty(self):
-        df = f'{self.name}[{self.indef.pretty()}] == {self.expr.pretty()}'
+        df = fR'{self.name}[{self.indef.pretty()}] == {self.expr.pretty()}'
         return with_ann(df, self.ann)
 
     def ir(self):
@@ -832,7 +832,7 @@ class ExceptArgLhsFun:
         self.arg = arg
 
     def pretty(self):
-        return f'[{self.arg.pretty()}]'
+        return fR'[{self.arg.pretty()}]'
 
     def ir(self):
         return self.arg.ir()
@@ -843,7 +843,7 @@ class ExceptArgLhsTupleFun:
 
     def pretty(self):
         args = commas(arg.pretty() for arg in self.args)
-        return f'[{args}]'
+        return fR'[{args}]'
 
     def ir(self):
         return Tuple(*self.args).ir()
@@ -854,7 +854,7 @@ class ExceptArgLhsRec:
         self.arg = arg
 
     def pretty(self):
-        return f'.{self.arg}'
+        return fR'.{self.arg}'
 
     def ir(self):
         return Str(self.arg).ir()
@@ -868,7 +868,7 @@ class ExceptArgLhs:
         self.args = args
 
     def pretty(self):
-        return ''.join(arg.pretty() for arg in self.args)
+        return fR''.join(arg.pretty() for arg in self.args)
 
     def ir(self):
         return {
@@ -885,7 +885,7 @@ class ExceptArg:
         self.value = value
 
     def pretty(self):
-        return f'!{self.arg.pretty()} = {self.value.pretty()}'
+        return fR'!{self.arg.pretty()} = {self.value.pretty()}'
 
     def ir(self):
         return [self.arg.ir(), self.value.ir()]
@@ -898,7 +898,7 @@ class Except:
         self.args = args
 
     def pretty(self):
-        return f'[{self.fexpr.pretty()} EXCEPT {commas(arg.pretty() for arg in self.args)}]'
+        return fR'[{self.fexpr.pretty()} EXCEPT {commas(arg.pretty() for arg in self.args)}]'
 
     def ir(self):
         ex = {
@@ -923,7 +923,7 @@ class FunSet:
         self.rhs = rhs
 
     def pretty(self):
-        return f'[{self.lhs.pretty()} -> {self.rhs.pretty()}]'
+        return fR'[{self.lhs.pretty()} -> {self.rhs.pretty()}]'
 
     def ir(self):
         return {
@@ -940,7 +940,7 @@ class RecordSet:
 
     def pretty(self):
         fields = [f'{name} : {value.pretty()}' for name, value in self.fields.items()]
-        return f'[{commas(fields)}]'
+        return fR'[{commas(fields)}]'
 
     def ir(self):
         args = []
@@ -1240,19 +1240,19 @@ class BinOp:
         rhs = within_parens(self.rhs)
 
         if self.op == BinOpId.AndMultiLine:
-            clhs = indent_but_first(f'/\\ {lhs}')
-            crhs = indent_but_first(f'/\\ {rhs}')
+            clhs = indent_but_first(fR'/\ {lhs}')
+            crhs = indent_but_first(fR'/\ {rhs}')
             return indent_but_first('(', clhs, crhs,')')
 
         if self.op == BinOpId.OrMultiLine:
-            clhs = indent_but_first(f'\\/ {lhs}')
-            crhs = indent_but_first(f'\\/ {rhs}')
+            clhs = indent_but_first(fR'\/ {lhs}')
+            crhs = indent_but_first(fR'\/ {rhs}')
             return indent_but_first('(', clhs, crhs,')')
 
         if self.op == BinOpId.And:
             op = '/\\'
         elif self.op == BinOpId.Or:
-            op = '\\/'
+            op = R'\/'
         elif self.op == BinOpId.Eq:
             op = '='
         elif self.op == BinOpId.Ne:
@@ -1272,7 +1272,7 @@ class BinOp:
         elif self.op == BinOpId.Mul:
             op = '*'
         elif self.op == BinOpId.Div:
-            op = '\\div'
+            op = R'\div'
         elif self.op == BinOpId.Mod:
             op = '%'
         elif self.op == BinOpId.Pow:
@@ -1282,19 +1282,19 @@ class BinOp:
         elif self.op == BinOpId.Equiv:
             op = '<=>'
         elif self.op == BinOpId.In:
-            op = '\\in'
+            op = R'\in'
         elif self.op == BinOpId.NotIn:
-            op = '\\notin'
+            op = R'\notin'
         elif self.op == BinOpId.SubsetEq:
-            op = '\\subseteq'
+            op = R'\subseteq'
         elif self.op == BinOpId.SetDiff:
             op = '\\'
         elif self.op == BinOpId.Union:
-            op = '\\union'
+            op = R'\union'
         elif self.op == BinOpId.Intersect:
-            op = '\\intersect'
+            op = R'\intersect'
         elif self.op == BinOpId.Concat:
-            op = '\o'
+            op = R'\o'
         elif self.op == BinOpId.TlcSingletonFun:
             op = ':>'
         elif self.op == BinOpId.TlcExtendFun:
@@ -1304,7 +1304,7 @@ class BinOp:
         elif self.op == BinOpId.BagSub:
             op = '(-)'
         elif self.op == BinOpId.BagSubsetEq:
-            op = r'\sqsubseteq'
+            op = R'\sqsubseteq'
         else:
             assert False, f"Unknown operation `{self.op}'"
 
@@ -1371,13 +1371,13 @@ class BinOp:
             sub_op = '@@'
         elif self.op == BinOpId.BagAdd:
             op = 'OPER_APP'
-            sub_op = '\\oplus'
+            sub_op = R'\oplus'
         elif self.op == BinOpId.BagSub:
             op = 'OPER_APP'
-            sub_op = '\\ominus'
+            sub_op = R'\ominus'
         elif self.op == BinOpId.BagSubsetEq:
             op = 'OPER_APP'
-            sub_op = '\\sqsubseteq'
+            sub_op = R'\sqsubseteq'
         else:
             assert False, f"Unknown operation `{self.op}'"
 
@@ -1447,7 +1447,7 @@ class Cross:
 
     def pretty(self):
         args = [within_parens(arg) for arg in self.args]
-        return ' \\X '.join(args)
+        return R' \X '.join(args)
         return r
 
     def ir(self):
@@ -1463,7 +1463,7 @@ class Prime:
         self.arg = arg
 
     def pretty(self):
-        r = f'{within_parens(self.arg)}\''
+        r = f"{within_parens(self.arg)}'"
         return r
 
     def ir(self):
@@ -1774,7 +1774,7 @@ class Cfg:
         return [name, indent(*values), '']
 
     def pretty(self):
-        r = [f'\* CONFIG {self.name}', '']
+        r = [fR'\* CONFIG {self.name}', '']
         model_values = [f'{mv} = {mv}' for mv in self.model_values]
         overrides = [f'{n} <- {v.pretty()}' for n,v in self.overrides.items()]
         r += self.aligned('CONSTANT', *model_values, *overrides)
