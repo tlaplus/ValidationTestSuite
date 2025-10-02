@@ -48,12 +48,17 @@ By systematically exercising TLC's behavior across thousands of test cases and d
 ## Prerequisites
 
 * Before cloning the repository ensure that `git-lfs` is installed
-* Python 3.9+ - it is known work with versions 3.9 and 3.10; it doesn't work with earlier or newer versions
+* Python 3.9+; it doesn't work with earlier or newer versions
 * Python libraries:
   - PyYAML
   - jinja2
 * OpenJDK Runtime Environment 17
 * bubblewrap 0.4.0 (Linux only)
+ 
+```bash
+sudo apt install git-lfs
+git clone https://github.com/tlaplus/ValidationTestSuite.git && (cd ValidationTestSuite && git lfs install && git lfs fetch --all && git lfs checkout)
+```
 
 ## Usage
 
