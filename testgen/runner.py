@@ -16,6 +16,7 @@
 import logging
 import os
 import json
+import subprocess
 import tempfile
 from .parallel import *
 
@@ -57,23 +58,49 @@ RESULT_DEADLOCK='deadlock'
 RESULT_ASSUMPTION='assumption'
 RESULT_CRASH='crash'
 
+tlc_default_jar = os.path.join('tools', '1.7.2', 'tla2tools.jar')
+apalache_default_jar = os.path.join('tools', 'apalache-0.28.0.jar')
+jacoco_default_jar = os.path.join('tools', 'jacoco', 'jacocoagent.jar')
+
 tlc_jar = None
 apalache_jar = None
 jacoco_jar = None
 
 tmp_dir = None
 
-def setup():
-    global tlc_jar, apalache_jar, tmp_dir, jacoco_jar
+def prepare_execution_environment(tlc_jar_override = None, apalache_jar_override = None, jacoco_jar_override = None):
+    """
+    Resolve TLC, Apalache, and JaCoCo jar files.
+    Arguments:
+        tlc_jar_override: Override the default TLC jar file
+        apalache_jar_override: Override the default Apalache jar file
+        jacoco_jar_override: Override the default JaCoCo jar file
+    """
     working_dir = os.getcwd()
-    tlc_jar = os.path.join(working_dir, 'tools', '1.8.0', 'tla2tools.jar')
-    apalache_jar = os.path.join(working_dir, 'tools', 'apalache-0.28.0.jar')
-    jacoco_jar = os.path.join(working_dir, 'tools', 'jacoco-0.8.8', 'jacocoagent.jar')
 
-    tmp_dir = tempfile.TemporaryDirectory()
+    # Validate JAR files by attempting to run them with Java
+    def validate_jar(jar_file_override, default_jar_file, name):
+        effective_jar_file = jar_file_override or default_jar_file
+        full_jar_file = os.path.join(working_dir, effective_jar_file)
+        jar_ref = f'{name} jar file `{effective_jar_file}`'
+        if not os.path.isfile(full_jar_file):
+            logging.error(f'{jar_ref} not found or not a file')
+            exit(1)
+        try:
+            result = subprocess.run(['unzip', '-t', full_jar_file],
+                                  capture_output=True, timeout=10)
+            if result.returncode != 0:
+                logging.error(f'{jar_ref} is not a valid JAR or cannot be executed')
+                exit(1)
+            return full_jar_file
+        except (subprocess.TimeoutExpired, subprocess.SubprocessError, FileNotFoundError) as e:
+            logging.error(f'Failed to validate {jar_ref}: {e}')
+            exit(1)
 
-def teardown():
-    tmp_dir.cleanup()
+    global tlc_jar, apalache_jar, jacoco_jar
+    tlc_jar = validate_jar(tlc_jar_override, tlc_default_jar, 'TLC')
+    apalache_jar = validate_jar(apalache_jar_override, apalache_default_jar, 'Apalache')
+    jacoco_jar = validate_jar(jacoco_jar_override, jacoco_default_jar, 'JaCoCo')
 
 async def run_wrapper(exec_dir, id, force, f):
     cache = os.path.join(exec_dir, id)
@@ -124,6 +151,8 @@ def tlc_args(spec_dir, exec_dir, desc, coverage):
         search_paths_opts = [f'-DTLA-Library={search_paths}']
     else:
         search_paths_opts = []
+
+    assert jacoco_jar
 
     # Add coverage agent if needed
     if coverage:
@@ -346,7 +375,9 @@ def run_testcases_parallel(
         coverage = False):
 
     spec = load_spec(spec_file)
-    setup()
+
+    global tmp_dir
+    tmp_dir = tempfile.TemporaryDirectory()
 
     try:
         report = {}
@@ -370,4 +401,5 @@ def run_testcases_parallel(
             with open(exec_report_file, 'w') as h:
                 return json.dump(report, h, indent = 2)
     finally:
-        teardown()
+        tmp_dir.cleanup()
+        tmp_dir = None

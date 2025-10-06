@@ -40,7 +40,7 @@ jobs:
             bwrap --ro-bind / / --unshare-user --unshare-ipc echo "bwrap successfully configured"
       - name: Run testgen
         run: |
-            python -m testgen -o reports/ -s -e --html -x explanation.yaml -w $(nproc)
+            python -m testgen -o reports/ -s -e --html -x explanation.yaml -w $(nproc) --tlc-jar tools/1.8.0/tla2tools.jar
       - name: Upload report to https://dl.tlapl.us/validation-test-suite for easy access.
         if: always()
         uses: burnett01/rsync-deployments@7.1.0

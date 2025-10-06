@@ -150,6 +150,13 @@ def main():
                         action='store_true', dest='html', default=False,
                         help="Create HTML report")
 
+    parser.add_argument("--tlc-jar", dest="tlc_jar",
+                        help="TLC jar file", metavar="FILE")
+    parser.add_argument("--apalache-jar", dest="apalache_jar",
+                        help="Apalache jar file", metavar="FILE")
+    parser.add_argument("--jacoco-jar", dest="jacoco_jar",
+                        help="JaCoCo jar file", metavar="FILE")
+
     parser.add_argument("-o", "--output-dir", dest="output_dir",
                         required=True,
                         help="Output directory")
@@ -186,10 +193,21 @@ def main():
 
     global debug
     debug = args.debug
-    logging.basicConfig(level = logging.DEBUG if args.debug else logging.INFO)
+    logging.basicConfig(
+        format = '%(levelname)7s: %(message)s',
+        level = logging.DEBUG if args.debug else logging.INFO)
+
     logging.debug(f'Args: {args}')
 
     explanation_db = ExplanationDB(args.explanation_db)
+
+    if args.execute or args.coverage:
+        # Prepare execution environment for TLC, Apalache, and JaCoCo.
+        # We do it here to report any issues early.
+        prepare_execution_environment(
+            tlc_jar_override = args.tlc_jar,
+            apalache_jar_override = args.apalache_jar,
+            jacoco_jar_override = args.jacoco_jar)
 
     if args.spec:
         if args.filter_any_side:
@@ -213,7 +231,7 @@ def main():
             explanation_db = explanation_db,
             force = args.force)
 
-    if args.coverage:
+    if args.coverage and jacoco_jar:
         collect_coverage(
             output_dir = args.output_dir,
             workers = args.workers)

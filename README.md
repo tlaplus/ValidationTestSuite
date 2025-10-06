@@ -54,7 +54,8 @@ By systematically exercising TLC's behavior across thousands of test cases and d
   - jinja2
 * OpenJDK Runtime Environment 17
 * bubblewrap 0.4.0 (Linux only)
- 
+* unzip
+
 ```bash
 sudo apt install git-lfs
 git clone https://github.com/tlaplus/ValidationTestSuite.git && (cd ValidationTestSuite && git lfs install && git lfs fetch --all && git lfs checkout)

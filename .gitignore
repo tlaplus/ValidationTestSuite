@@ -12,3 +12,6 @@ cases*
 .cache
 0
 plc
+.venv
+mount
+*.log
