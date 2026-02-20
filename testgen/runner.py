@@ -164,8 +164,6 @@ def tlc_args(spec_dir, exec_dir, desc, coverage):
     # Compose cmd line
     return [
         'java', '-XX:+UseParallelGC',
-        # Disable LazyValue optimization, which has at least one known issue #798
-        '-Dtlc2.value.impl.LazyValue.off=true',
     ] + jacoco + [
         '-cp', tlc_jar,
     ] + search_paths_opts + [
