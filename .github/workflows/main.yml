@@ -11,6 +11,7 @@ jobs:
 
     permissions:
       contents: write
+      security-events: write
 
     steps:
       - name: Clone repo
@@ -72,3 +73,33 @@ jobs:
           files: reports.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Convert execution report to SARIF
+        if: always()
+        run: |
+            python tools/execution_report_to_sarif.py \
+              --execution-report reports/execution/execution.json \
+              --sarif-output reports/validation.sarif \
+              --summary-output reports/execution-summary.json
+      - name: Upload SARIF report
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: reports/validation.sarif
+          category: tlc-validation
+      - name: Fail workflow on unexplained deviations
+        if: always()
+        run: |
+            python - <<'PY'
+            import json
+            import pathlib
+            import sys
+
+            p = pathlib.Path("reports/execution-summary.json")
+            if not p.exists():
+                print("Missing reports/execution-summary.json; failing gate.")
+                sys.exit(1)
+
+            d = json.load(p.open())
+            print(f"failed_unexplained={d.get('failed_unexplained')}")
+            sys.exit(1 if d.get("failed_unexplained", 1) > 0 else 0)
+            PY
