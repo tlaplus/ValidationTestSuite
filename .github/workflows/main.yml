@@ -82,7 +82,7 @@ jobs:
               --summary-output reports/execution-summary.json
       - name: Upload SARIF report
         if: always()
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: reports/validation.sarif
           category: tlc-validation
