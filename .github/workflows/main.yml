@@ -3,6 +3,8 @@ on:
   repository_dispatch:
     types: [tlaplus-dispatch]
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 */14 * *'
 
 jobs:
   validate:
