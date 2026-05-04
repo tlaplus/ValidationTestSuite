@@ -775,3 +775,19 @@ explanations:
         include zero, and returns an error otherwise. BagCopiesIn returns zero, because there no such
         value in the bag, therefore TLC reports error. Apalache always returns some sequence and doesn't
         crash in such situations
+
+    - desc: {'case_feature': 'Unchanged', 'plug_feature': 'BagEmptyBag', 'check_deadlock': True}
+      result:
+        tlc: violation
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache cannot infer the type of the compound
+        expression and reports a type error.
+
+    - desc: {'case_feature': 'Unchanged', 'plug_feature': 'BagEmptyBag', 'check_deadlock': False}
+      result:
+        tlc: violation
+        ref: crash
+      explanation: >-
+        TLC model check results are correct. Apalache cannot infer the type of the compound
+        expression and reports a type error.

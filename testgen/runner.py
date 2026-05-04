@@ -169,7 +169,7 @@ def tlc_args(spec_dir, exec_dir, desc, coverage):
         4801, # INSTANCED_MODULES_SYMBOL_UNIFICATION_AMBIGUITY
         # Disabled because it is not a critical warning
         # 4802, # RECORD_CONSTRUCTOR_FIELD_NAME_CLASH
-        # Disbaled because PlusCal is out of scope for qualification
+        # Disabled because PlusCal is out of scope for qualification
         # 4803, # PLUSCAL_ALGORITHM_AND_TRANSLATION_CHANGED_SINCE_LAST_TRANSLATION
         # 4804, # PLUSCAL_ALGORITHM_CHANGED_SINCE_LAST_TRANSLATION
         # 4805, # PLUSCAL_TRANSLATION_CHANGED_SINCE_LAST_TRANSLATION
@@ -248,10 +248,18 @@ async def run_tlc_internal(spec_dir, exec_dir, desc, coverage, is_anomalous, max
         status = RESULT_DEADLOCK
     elif returncode == VIOLATION_ASSUMPTION:
         status = RESULT_ASSUMPTION
-    elif returncode == VIOLATION_ASSERT:
-        status = RESULT_ASSERT
     elif returncode in tlc_violation_codes:
         status = RESULT_VIOLATION
+    elif (
+            # Normal way to detect assertion violations
+            returncode == VIOLATION_ASSERT or
+            # If used inside function bodies and ENABLED, TLC reports a different error code
+            # so we analyze the output to detect assertion violations
+            b'The first argument of Assert evaluated to FALSE' in stdout or
+            # This is a special case for assertions: equivalent TLC test cases are expected to
+            # crash by comparing string "assert crash" with a boolean value.
+            b'Attempted to check equality of string "assert crash"' in stdout):
+        status = RESULT_ASSERT
     else:
         status = RESULT_CRASH
 
@@ -383,10 +391,6 @@ def testcase_execution_report(report, explanation_db, execution_results):
             if tlc == RESULT_ASSUMPTION and ref == RESULT_VIOLATION:
                 # Apalache treats ASSUME statements as invariants
                 verdict = 'Passed'
-            elif tlc == RESULT_ASSERT and ref in [RESULT_VIOLATION, RESULT_DEADLOCK, RESULT_SUCCESS]:
-                #
-                # Apalache treats ASSUME statements as invariants
-                verdict = 'Passed'
             elif tlc != ref or tlc not in [RESULT_SUCCESS, RESULT_VIOLATION, RESULT_DEADLOCK]:
                 verdict = 'Failed'
                 explanation = explanation_db.find_explanation(desc['desc'], tlc, ref)
@@ -394,6 +398,7 @@ def testcase_execution_report(report, explanation_db, execution_results):
                     logging.info(f'Unexplained results for: {report["desc"]}')
                     logging.info(f'\t{tlc} :: {ref}')
             else:
+                assert tlc == ref
                 verdict = 'Passed'
         elif tc_type == TestCaseType_RefTlc:
             if tlc != ref:
@@ -403,6 +408,7 @@ def testcase_execution_report(report, explanation_db, execution_results):
                     logging.info(f'Unexplained results for: {report["desc"]}')
                     logging.info(f'\t{tlc} :: {ref}')
             else:
+                assert tlc == ref
                 verdict = 'Passed'
 
     assert verdict

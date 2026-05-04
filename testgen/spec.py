@@ -169,6 +169,7 @@ feature_ids = [
     ("TlcPermuteFun", 'Permutations(S)', TlcPermuteFunF()),
     ("TlcSortSeq", 'SortSeq(<<...>>, Op)', TlcSortSeqF()),
     ("TlcEval", 'TLCEval(expr)', TlcEvalF()),
+    ("TlcAssert", 'Assert(cond, msg). Note: We only validate that Assert is equivalent to TRUE if it does not fire (report false positives). If assertion fires, we treat it as a crash and do not guarantee anything.', TlcAssertF()),
     ("BagBagToSet", 'BagToSet(expr)', BagBagToSetF()),
     ("BagSetToBag", 'SetToBag(S)', BagSetToBagF()),
     ("BagBagIn", 'BagIn(e, B)', BagBagInF()),
