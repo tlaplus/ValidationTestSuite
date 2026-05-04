@@ -14,7 +14,6 @@
 # limitations under the License.
 
 from enum import Enum, auto, unique
-import itertools
 import os
 import json
 import logging
@@ -554,6 +553,7 @@ standard_table = {
     'BagOfAll' : 'BagOfAll',
     'BagCardinality' : 'BagCardinality',
     'CopiesIn' : 'CopiesIn',
+    'Assert' : 'Assert',
 }
 
 # Strip module (bang) prefix

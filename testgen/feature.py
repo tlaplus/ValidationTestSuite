@@ -4201,6 +4201,84 @@ class TlcEvalF(Feature):
         expr = type.sample()
         return self.teval_reduced(expr)
 
+class TlcAssertF(Feature):
+    def can_be_reduced(self):
+        return True
+
+    def reduction_strategy(self):
+        return (
+            "Assert(cond, msg) is reduced to specially crafted TLC crash: "
+            "'IF cond THEN TRUE ELSE \"assert crash\" = FALSE'.")
+
+    def kind(self):
+        # Assert may only be used in actions thus it accepts
+        # only action, state and const expressions
+        return [Kind.Action, Kind.State, Kind.Const]
+
+    def type(self):
+        return bool_t
+
+    def assert_op(self, cond, msg):
+        self.add_extends_standard('TLC')
+        ref = Def1Ref('Assert')
+        ref.type = Def1T(bool_t, bool_t, rest_args = [str_t])
+        r = Def1App(ref, cond, msg)
+        r.type = bool_t
+        r.kind = cond.kind
+        return r
+
+    # If input is not a bool, then build FALSE value
+    # TLC halts on a FALSE condition - and that's what we want to test
+    def construct_value(self, hole):
+        if hole.type.match(bool_t):
+            return hole
+        r = BinOp(BinOpId.Ne, hole, hole)
+        r.type = bool_t
+        r.kind = hole.kind
+        return r
+
+    def make_msg(self):
+        msg = Str("assertion_message")
+        msg.type = str_t
+        msg.kind = Kind.Const
+        return msg
+
+    def make_crash(self, expr):
+        crash_expr = eq(Str("assert crash"), Bool(False))
+        return IfThenElse(expr, Bool(True), crash_expr)
+
+    def case(self, hole):
+        cond = self.construct_value(hole)
+        expr = self.assert_op(cond, self.make_msg())
+        return self.testmodel_template(next = self.next_y(expr))
+
+    def case_tlc_reduced(self, hole):
+        expr = self.make_crash(hole)
+        args, kw = self.testmodel_template(next = self.next_y(expr))
+        return TlcModel(*args, **kw)
+
+    def plug(self, type):
+        if Kind.Action not in self.kinds:
+            return SkipReason.KindMismatch
+        if not type.match(bool_t):
+            return SkipReason.TypeMismatch
+        # Setting cond to False because we need to check that TLC finds
+        # assertion violations if they are there
+        cond = Bool(False)
+        cond.type = bool_t
+        cond.kind = Kind.Const
+        return self.assert_op(cond, self.make_msg())
+
+    def plug_tlc_reduced(self, type):
+        if Kind.Action not in self.kinds:
+            return SkipReason.KindMismatch
+        if not type.match(bool_t):
+            return SkipReason.TypeMismatch
+        cond = self.make_crash(Bool(False))
+        cond.type = bool_t
+        cond.kind = Kind.Const
+        return cond
+
 class BagBagToSetF(Feature):
     def kind(self):
         return simple_kinds
