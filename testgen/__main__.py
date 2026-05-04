@@ -172,6 +172,9 @@ def main():
                         help='Enable debug output')
 
     # Test case filtering
+    parser.add_argument("--reduced-workers", dest="reduced_workers",
+                        action='store_true', default=False,
+                        help="Reduce number of workers variants to 2")
     parser.add_argument("-n", "--no-symmetry", dest='no_symmetry',
                         action='store_true', default=False,
                         help="Sandboxing: do not generate SYMMETRY cases")
@@ -210,6 +213,8 @@ def main():
             jacoco_jar_override = args.jacoco_jar)
 
     if args.spec:
+        select_workers_options(args.reduced_workers)
+
         if args.filter_any_side:
             filter = any_side(*args.filter_any_side)
         elif args.filter_any_side_exact:
