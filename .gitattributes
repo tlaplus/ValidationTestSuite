@@ -4,3 +4,4 @@ tools/jacoco/jacocoagent.jar filter=lfs diff=lfs merge=lfs -text
 tools/jacoco/jacocoant.jar filter=lfs diff=lfs merge=lfs -text
 tools/jacoco/jacococli.jar filter=lfs diff=lfs merge=lfs -text
 tools/apalache-0.57.0.jar filter=lfs diff=lfs merge=lfs -text
+tools/2026.04.27.203507/tla2tools.jar filter=lfs diff=lfs merge=lfs -text
