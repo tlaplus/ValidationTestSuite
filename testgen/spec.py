@@ -26,8 +26,15 @@ WORKERS_1 = '1'
 WORKERS_2 = '2'
 WORKERS_AUTO = 'auto'
 
-# To reduce number of test cases, we exclude WORKERS_AUTO
-workers_options = [WORKERS_1, WORKERS_2]
+workers_options = None
+
+def select_workers_options(reduced : bool) -> None:
+    global workers_options
+    if reduced:
+        # To reduce number of test cases, we exclude WORKERS_AUTO
+        workers_options = [WORKERS_1, WORKERS_2]
+    else:
+        workers_options = [WORKERS_1, WORKERS_2, WORKERS_AUTO]
 
 @dataclass
 class FeatureId:

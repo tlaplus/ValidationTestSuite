@@ -93,7 +93,7 @@ def find_workers(tc):
     for w in workers_options:
         if w in options:
             return w
-    assert False, 'Non-reachable code'
+    assert False, f'Intersection of `{workers_options}` and command options `{options}` is empty'
     return None
 
 def build_index(spec):
