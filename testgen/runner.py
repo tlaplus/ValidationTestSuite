@@ -20,6 +20,7 @@ import random
 import subprocess
 import tempfile
 from .parallel import *
+from .spec import load_spec
 
 '''
 TLC Error Codes
@@ -419,10 +420,6 @@ def testcase_execution_report(report, explanation_db, execution_results):
     report['explained'] = explanation != None
     if explanation != None:
         report['explanation'] = explanation.explanation
-
-def load_spec(spec_file):
-    with open(spec_file, 'r') as h:
-        return json.load(h)
 
 def run_testcases_parallel(
         spec_dir,

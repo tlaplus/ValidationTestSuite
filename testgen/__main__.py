@@ -213,8 +213,10 @@ def main():
             jacoco_jar_override = args.jacoco_jar)
 
     if args.spec:
-        select_workers_options(args.reduced_workers)
-
+        # `--reduced-workers` only affects the specification stage.
+        # The chosen workers_options are persisted in specification.json
+        # so later stages can recover the value without the CLI switch.
+        set_workers_options(compute_workers_options(args.reduced_workers))
         if args.filter_any_side:
             filter = any_side(*args.filter_any_side)
         elif args.filter_any_side_exact:

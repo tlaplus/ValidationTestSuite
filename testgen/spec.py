@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022-2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2022-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,13 +28,20 @@ WORKERS_AUTO = 'auto'
 
 workers_options = None
 
-def select_workers_options(reduced : bool) -> None:
-    global workers_options
+def compute_workers_options(reduced : bool) -> list:
     if reduced:
         # To reduce number of test cases, we exclude WORKERS_AUTO
-        workers_options = [WORKERS_1, WORKERS_2]
+        return [WORKERS_1, WORKERS_2]
     else:
-        workers_options = [WORKERS_1, WORKERS_2, WORKERS_AUTO]
+        return [WORKERS_1, WORKERS_2, WORKERS_AUTO]
+
+def set_workers_options(opts : list) -> None:
+    global workers_options
+    workers_options = opts
+
+def get_workers_options() -> list:
+    assert workers_options is not None, "set_workers_options() must be called before get_workers_options()"
+    return workers_options
 
 @dataclass
 class FeatureId:
@@ -275,6 +282,19 @@ def render_testcases(cases, path):
 
 def render_spec(spec_dir, spec_file, feature_filter, symmetry, anomalous):
     cases = prepare_testcases(feature_filter, symmetry = symmetry, anomalous = anomalous)
-    report = render_testcases(cases, spec_dir)
+    testcases = render_testcases(cases, spec_dir)
+    spec = {
+        'workers_options' : get_workers_options(),
+        'testcases' : testcases,
+    }
     with open(spec_file, 'w') as h:
-        json.dump(report, h, indent = 2)
+        json.dump(spec, h, indent = 2)
+
+# Load specification from file. Returns the testcases dict and, as a side
+# effect, restores the global workers_options from the value persisted in
+# the spec file.
+def load_spec(spec_file):
+    with open(spec_file, 'r') as h:
+        data = json.load(h)
+    set_workers_options(data['workers_options'])
+    return data['testcases']

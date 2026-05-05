@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2022-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 import os
 import json
 from jinja2 import Environment, FileSystemLoader
-from .spec import workers_options, WORKERS_1
+from .spec import get_workers_options, load_spec, WORKERS_1
 from .testcasedefs import *
 
 def get_template_path():
@@ -90,10 +90,11 @@ class IndexSkippedRefs:
 
 def find_workers(tc):
     options = tc['tlc']['cmd_options']
-    for w in workers_options:
+    workers = get_workers_options()
+    for w in workers:
         if w in options:
             return w
-    assert False, f'Intersection of `{workers_options}` and command options `{options}` is empty'
+    assert False, f'Intersection of `{workers}` and command options `{options}` is empty'
     return None
 
 def build_index(spec):
@@ -278,13 +279,13 @@ def generate_failed_html(env, html_dir, spec, results, toc):
 
 def generate_index_html(env, html_dir, index, results, toc):
     index_refs = {}
-    for w in workers_options:
+    for w in get_workers_options():
         index_refs[w] = generate_index_workers_html(env, html_dir, index, w, results, toc)
 
     return index_refs
 
 def generate_feature_toc(env, html_dir, index_refs, features, toc):
-    for w in workers_options:
+    for w in get_workers_options():
         template_file = "test-feature.html"
         template = env.get_template(template_file)
         content = template.render(
@@ -317,7 +318,7 @@ def generate_main_html(env, html_dir, spec, results, toc):
 
         template_file = "test-toc.html"
         template = env.get_template(template_file)
-        content = template.render(workers = workers_options, statistics = statistics, toc = toc)
+        content = template.render(workers = get_workers_options(), statistics = statistics, toc = toc)
 
         html_file = template_file
         save_file(os.path.join(html_dir, html_file), content)
@@ -325,7 +326,7 @@ def generate_main_html(env, html_dir, spec, results, toc):
 def get_index_toc_html(env):
         template_file = "test-side-toc.html"
         template = env.get_template(template_file)
-        return template.render(workers = workers_options
+        return template.render(workers = get_workers_options()
 )
 
 def add_model(models, tc, model, result):
@@ -347,9 +348,9 @@ def generate_html_report(
     html_dir = os.path.join(output_dir, 'html')
     os.makedirs(html_dir, exist_ok = True)
 
-    # Load test specification
-    with open(spec_file) as spec_h:
-        spec = json.load(spec_h)
+    # Load test specification. As a side effect, this restores the global
+    # workers_options from the value persisted in spec_file.
+    spec = load_spec(spec_file)
 
     # Load test results
     with open(exec_report_file) as report_h:
