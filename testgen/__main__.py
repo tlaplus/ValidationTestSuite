@@ -167,6 +167,9 @@ def main():
                         help="Number of workers (normally number of physical cores)", metavar="WORKERS", default = 4, type = int)
     parser.add_argument("-x", "--explanation-db", dest="explanation_db", default=None,
                         help="YAML file with tests failure explanations", metavar="FILE")
+    parser.add_argument("--report-unused-explanations", dest="report_unused_explanations",
+                        action='store_true', default=False,
+                        help="Report unused explanations")
     parser.add_argument('-d', '--debug',
                         action='store_true', dest="debug", default=False,
                         help='Enable debug output')
@@ -237,6 +240,8 @@ def main():
             workers = args.workers,
             explanation_db = explanation_db,
             force = args.force)
+        if args.explanation_db and args.report_unused_explanations:
+            explanation_db.report_unused_keys()
 
     if args.coverage and jacoco_jar:
         collect_coverage(
