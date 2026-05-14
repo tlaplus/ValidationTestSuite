@@ -49,6 +49,7 @@ class ExplanationDB:
     def __init__(self, db_file):
         self.db = {}
         self.db_file = db_file
+        self.used_keys = set()
 
         if not db_file:
             return
@@ -69,7 +70,14 @@ class ExplanationDB:
         key = make_key(desc)
         e = self.db.get(key)
         if e:
+            self.used_keys.add(key)
             if e.tlc != tlc or e.ref != ref:
                 logging.error(f'ExplanationDB: {e.desc} results ({e.tlc}, {e.ref}) are inconsistent with actual results ({tlc}, {ref}) `{self.db_file}`')
                 exit(1)
         return e
+
+    def report_unused_keys(self):
+        unused_keys = self.db.keys() - self.used_keys
+        if unused_keys:
+            keys = '\n'.join([f'  {key}' for key in unused_keys])
+            logging.warning(f'ExplanationDB: {len(unused_keys)} keys are unused in `{self.db_file}`:\n{keys}')
