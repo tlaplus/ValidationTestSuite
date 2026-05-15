@@ -79,5 +79,5 @@ class ExplanationDB:
     def report_unused_keys(self):
         unused_keys = self.db.keys() - self.used_keys
         if unused_keys:
-            keys = '\n'.join([f'  {key}' for key in unused_keys])
+            keys = '\n'.join([f'  {key}' for key in sorted(unused_keys)])
             logging.warning(f'ExplanationDB: {len(unused_keys)} keys are unused in `{self.db_file}`:\n{keys}')
