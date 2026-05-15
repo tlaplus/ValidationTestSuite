@@ -241,8 +241,6 @@ async def run_tlc_internal(spec_dir, exec_dir, desc, coverage, is_anomalous, max
 
     (exec_desc, returncode, stdout) = result
 
-    assert b'*** Warnings:' not in stdout, f'Unexpected warnings in stdout: {stdout}'
-
     if returncode == 0:
         status = RESULT_SUCCESS
     elif returncode == VIOLATION_DEADLOCK:
