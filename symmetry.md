@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: Copyright (c) 2022 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+SPDX-FileCopyrightText: Copyright (c) 2022-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 SPDX-License-Identifier: Apache-2.0
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,10 +37,11 @@ All test cases use the same TLA+ specification file `SymmetrySpec.tla`
 
 Test cases are created for every pairwise combination of `SYMMETRY` and
 
-* `CHECK_DEADLOCK` (`TRUE`/`FALSE`)
+* Variants of specifying symmetry set permutations:`Permutations(U)` or`Permutations(U) \union Permutations(V)`
+* `CHECK_DEADLOCK` (`TRUE` or `FALSE`)
 * `VIEW` (present or not)
-* `INVARIANT` (present or not)
-* `PROPERTY` (present or not)
+* `INVARIANT` (correct, violating or absent)
+* `PROPERTY` (correct, violating or absent)
 
 Reference configuration uses the same TLA+ specification and the same CFG file without `SYMMETRY`.
 

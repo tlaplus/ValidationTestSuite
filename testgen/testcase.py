@@ -521,12 +521,20 @@ class TlcSymmetryCase(RefTlcCase):
         super().__init__(tlc, ref, desc)
 
     def make_path(self, parent_dir):
-        inv = ['i'] if self.desc['invariant'] else []
-        prop = ['p'] if self.desc['property'] else []
+        def inv_prop(prefix, value):
+            if value == 'Positive':
+                return [prefix + '_pos']
+            elif value == 'Negative':
+                return [prefix + '_neg']
+            else:
+                return []
+        symm = ['symm1'] if self.desc['symmetry'] == 'Permutations(U)' else ['symm2']
+        inv = inv_prop('i', self.desc['invariant'])
+        prop = inv_prop('p', self.desc['property'])
         view = ['v'] if self.desc['view'] else []
         dl = ['dl'] if self.desc['check_deadlock'] else []
 
-        path = '-'.join(['symmetry'] + inv + prop + view + dl)
+        path = '-'.join(['symmetry'] + symm + inv + prop + view + dl)
 
         tlc_path = os.path.join(path, 'tlc')
         ref_path = os.path.join(path, 'ref')
