@@ -36,7 +36,7 @@ class AnomalousCondition(Enum):
         if self == AnomalousCondition.OutOfMemory:
             desc = {
                 'desc' : 'Out of memory',
-                'memory' : 5000000
+                'memory' : 500000
             }
         elif self == AnomalousCondition.OutOfSpace:
             desc = {
