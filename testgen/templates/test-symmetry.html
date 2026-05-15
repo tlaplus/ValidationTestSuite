@@ -47,6 +47,9 @@ optimization.
       Type
     </th>
     <th>
+      Symmetry Variant
+    </th>
+    <th>
       Check Deadlock
     </th>
     <th>
@@ -81,6 +84,9 @@ optimization.
             {% else %}
               Apalache
             {% endif %}
+          </td>
+          <td>
+            <span class="keyword">{{ tc.desc.symmetry }}</span>
           </td>
           <td>
             <span class="keyword">{{ tc.desc.check_deadlock }}</span>

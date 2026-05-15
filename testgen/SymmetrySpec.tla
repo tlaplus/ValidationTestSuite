@@ -66,10 +66,13 @@ Spec == Init /\ [][Next]_vars
 
 ----
 
-Inv == (left \union right) = Messages
-Prop == [] Inv
+InvPos == (left \union right) = Messages
+InvNeg == right \subseteq left
+PropPos == [](~ENABLED Next => (iteration = Iterations /\ left = {}))
+PropNeg == [][left' \subseteq left]_left
 
-MessagesSymm == Permutations(Messages)
+MessagesSymm1 == Permutations(Messages)
+MessagesSymm2 == Permutations({M0, M1}) \union Permutations({M2, M3})
 IterationsDef == 2
 ViewDef == <<left, right, iteration>>
 

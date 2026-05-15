@@ -62,7 +62,7 @@ RESULT_ASSERT='assert'
 RESULT_CRASH='crash'
 
 tlc_default_jar = os.path.join('tools', '2026.04.27.203507', 'tla2tools.jar')
-apalache_default_jar = os.path.join('tools', 'apalache-0.28.0.jar')
+apalache_default_jar = os.path.join('tools', 'apalache-0.57.0.jar')
 jacoco_default_jar = os.path.join('tools', 'jacoco', 'jacocoagent.jar')
 
 tlc_jar = None

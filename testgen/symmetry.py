@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022-2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2022-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,10 +16,7 @@
 from .ast import *
 from .testcase import *
 
-def etalon_cfg(deadlock, invariant = False, property = False):
-    inv = "INVARIANT Inv" if invariant else ""
-    prop = "PROPERTY Prop" if property else ""
-
+def etalon_cfg(deadlock, invariant, property, view):
     return fR"""
 \* CONFIG
 
@@ -34,41 +31,64 @@ CONSTANT
 SPECIFICATION
     Spec
 
-CHECK_DEADLOCK {'TRUE' if deadlock else 'FALSE'}
-
-{inv}
-{prop}
+{deadlock}
+{view or ''}
+{invariant or ''}
+{property or ''}
 """
 
 def symmetry_cases():
     name = 'SymmetrySpec'
-    view_line = "VIEW ViewDef"
-    symmetry = "SYMMETRY MessagesSymm"
-
+    symmetries = [
+        ("Permutations(U)", "SYMMETRY MessagesSymm1"),
+        (R"Permutations(U) \union Permutations(V)", "SYMMETRY MessagesSymm2"),
+    ]
+    invariants = [
+        ("Positive", "INVARIANT InvPos"),
+        ("Negative", "INVARIANT InvNeg"),
+        ("Absent", None),
+    ]
+    properties = [
+        ("Positive", "PROPERTY PropPos"),
+        ("Negative", "PROPERTY PropNeg"),
+        ("Absent", None),
+    ]
+    views = [
+        (True, "VIEW ViewDef"),
+        (False, None),
+    ]
+    deadlocks = [
+        (True, "CHECK_DEADLOCK TRUE"),
+        (False, "CHECK_DEADLOCK FALSE"),
+    ]
     cases = []
 
-    for deadlock in [True, False]:
-        for inv in [True, False]:
-            for property in [True, False]:
-                ref = etalon_cfg(deadlock = deadlock, invariant = inv, property = property)
-                ref_model = PlainFileModel(name, cfg_content = ref)
-                for view in [True, False]:
-                    parts = [ref, symmetry]
-                    if view:
-                        parts.append(view_line)
-                    tlc = '\n'.join(parts)
-                    tlc_model = PlainFileModel(name, cfg_content = tlc)
+    for symmetry in symmetries:
+        for invariant in invariants:
+            for property in properties:
+                for view in views:
+                    for deadlock in deadlocks:
+                        ref = etalon_cfg(
+                            deadlock = deadlock[1],
+                            invariant = invariant[1],
+                            property = property[1],
+                            view = view[1],
+                        )
+                        ref_model = PlainFileModel(name, cfg_content = ref)
+                        tlc = '\n'.join([ref, symmetry[1]])
+                        tlc_model = PlainFileModel(name, cfg_content = tlc)
 
-                    desc = {
-                        'check_deadlock' : deadlock,
-                        'invariant' : inv,
-                        'property' : property,
-                        'view' : view,
-                        'reduction_strategy': {
-                            'configuration': 'Do not use SYMMETRY optimization'
+                        desc = {
+                            'check_deadlock' : deadlock[0],
+                            'invariant' : invariant[0],
+                            'property' : property[0],
+                            'view' : view[0],
+                            'symmetry' : symmetry[0],
+                            'reduction_strategy': {
+                                'configuration': 'Do not use SYMMETRY optimization'
+                            },
                         }
-                    }
 
-                    case = TlcSymmetryCase(tlc_model, ref_model, desc)
-                    cases.append(case)
+                        case = TlcSymmetryCase(tlc_model, ref_model, desc)
+                        cases.append(case)
     return cases
