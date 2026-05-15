@@ -406,20 +406,6 @@ explanations:
         same action and Apalache complains about spurious manual assignment, because it
         is unable to detect that the second usage is just no-op
 
-    - desc: {'case_feature': 'Lambda', 'plug_feature': 'Boxed', 'check_deadlock': False}
-      result:
-        tlc: crash
-        ref: violation
-      explanation: >-
-        TLC does not support boxed operator in LAMBDA expressions and reports an error
-
-    - desc: {'case_feature': 'Lambda', 'plug_feature': 'Boxed', 'check_deadlock': True}
-      result:
-        tlc: crash
-        ref: violation
-      explanation: >-
-        TLC does not support boxed operator in LAMBDA expressions and reports an error
-
     - desc: {'case_feature': 'Enabled', 'plug_feature': 'Prime', 'check_deadlock': False}
       result:
         tlc: violation
@@ -435,70 +421,6 @@ explanations:
       explanation: >-
         TLC model check results are correct. Apalache does not support ENABLED operator
         and if used with prime operator it is irreducible to equivalent ENABLED-free form
-
-    - desc: {'case_feature': 'InstanceNamedWith', 'plug_feature': 'InstanceWith', 'check_deadlock': False}
-      result:
-        tlc: success
-        ref: crash
-      explanation: >-
-        TLC model check results are correct. Apalache has a bug, which prevents it from
-        type checking the specification
-
-    - desc: {'case_feature': 'InstanceNamedWith', 'plug_feature': 'InstanceWith', 'check_deadlock': True}
-      result:
-        tlc: success
-        ref: crash
-      explanation: >-
-        TLC model check results are correct. Apalache has a bug, which prevents it from
-        type checking the specification
-
-    - desc: {'case_feature': 'InstanceNamedWith', 'plug_feature': 'Instance', 'check_deadlock': False}
-      result:
-        tlc: success
-        ref: crash
-      explanation: >-
-        TLC model check results are correct. Apalache has a bug, which prevents it from
-        type checking the specification
-
-    - desc: {'case_feature': 'InstanceNamedWith', 'plug_feature': 'Instance', 'check_deadlock': True}
-      result:
-        tlc: success
-        ref: crash
-      explanation: >-
-        TLC model check results are correct. Apalache has a bug, which prevents it from
-        type checking the specification
-
-    - desc: {'case_feature': 'InstanceNamed', 'plug_feature': 'InstanceWith', 'check_deadlock': False}
-      result:
-        tlc: success
-        ref: crash
-      explanation: >-
-        TLC model check results are correct. Apalache has a bug, which prevents it from
-        type checking the specification
-
-    - desc: {'case_feature': 'InstanceNamed', 'plug_feature': 'InstanceWith', 'check_deadlock': True}
-      result:
-        tlc: success
-        ref: crash
-      explanation: >-
-        TLC model check results are correct. Apalache has a bug, which prevents it from
-        type checking the specification
-
-    - desc: {'case_feature': 'InstanceNamed', 'plug_feature': 'Instance', 'check_deadlock': False}
-      result:
-        tlc: success
-        ref: crash
-      explanation: >-
-        TLC model check results are correct. Apalache has a bug, which prevents it from
-        type checking the specification
-
-    - desc: {'case_feature': 'InstanceNamed', 'plug_feature': 'Instance', 'check_deadlock': True}
-      result:
-        tlc: success
-        ref: crash
-      explanation: >-
-        TLC model check results are correct. Apalache has a bug, which prevents it from
-        type checking the specification
 
     - desc: {'case_feature': 'ConstantRank1', 'plug_feature': 'ConstantRank1', 'check_deadlock': False}
       result:
@@ -521,64 +443,16 @@ explanations:
         tlc: crash
         ref: violation
       explanation: >-
-        There is a known TLC bug (https://github.com/tlaplus/tlaplus/issues/720), which causes TLC to report
-        an error, when a parameterized operator is used to specify a property
+        There is a known TLC bug (https://github.com/tlaplus/tlaplus/issues/1389), which causes TLC to report
+        an error, when a recursive operator is used to specify a property
 
     - desc: {'case_feature': 'Def1Recursive', 'plug_feature': 'Boxed', 'check_deadlock': True}
       result:
         tlc: crash
         ref: violation
       explanation: >-
-        There is a known TLC bug (https://github.com/tlaplus/tlaplus/issues/720), which causes TLC to report
-        an error, when a parameterized operator is used to specify a property
-
-    - desc: {'case_feature': 'Def2', 'plug_feature': 'Boxed', 'check_deadlock': False}
-      result:
-        tlc: crash
-        ref: violation
-      explanation: >-
-        There is a known TLC bug (https://github.com/tlaplus/tlaplus/issues/720), which causes TLC to report
-        an error, when a parameterized operator is used to specify a property
-
-    - desc: {'case_feature': 'Def2', 'plug_feature': 'Boxed', 'check_deadlock': True}
-      result:
-        tlc: crash
-        ref: violation
-      explanation: >-
-        There is a known TLC bug (https://github.com/tlaplus/tlaplus/issues/720), which causes TLC to report
-        an error, when a parameterized operator is used to specify a property
-
-    - desc: {'case_feature': 'Def1', 'plug_feature': 'Boxed', 'check_deadlock': False}
-      result:
-        tlc: crash
-        ref: violation
-      explanation: >-
-        There is a known TLC bug (https://github.com/tlaplus/tlaplus/issues/720), which causes TLC to report
-        an error, when a parameterized operator is used to specify a property
-
-    - desc: {'case_feature': 'Def1', 'plug_feature': 'Boxed', 'check_deadlock': True}
-      result:
-        tlc: crash
-        ref: violation
-      explanation: >-
-        There is a known TLC bug (https://github.com/tlaplus/tlaplus/issues/720), which causes TLC to report
-        an error, when a parameterized operator is used to specify a property
-
-    - desc: {'case_feature': 'LetDef0', 'plug_feature': 'Boxed', 'check_deadlock': False, 'reduction_strategy': {'feature_case': 'LET definitions are reduced to global definitions'}}
-      result:
-        tlc: crash
-        ref: violation
-      explanation: >-
-        TLC expects temporal properties to be specified directly without using operators or LET expression.
-        Otherwise it reports an error
-
-    - desc: {'case_feature': 'LetDef0', 'plug_feature': 'Boxed', 'check_deadlock': True, 'reduction_strategy': {'feature_case': 'LET definitions are reduced to global definitions'}}
-      result:
-        tlc: crash
-        ref: violation
-      explanation: >-
-        TLC expects temporal properties to be specified directly without using operators or LET expression.
-        Otherwise it reports an error
+        There is a known TLC bug (https://github.com/tlaplus/tlaplus/issues/1389), which causes TLC to report
+        an error, when a recursive operator is used to specify a property
 
     - desc: {'case_feature': 'NumPlus', 'plug_feature': 'NumMaxInt', 'check_deadlock': False}
       result:
