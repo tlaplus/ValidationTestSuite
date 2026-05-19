@@ -50,6 +50,7 @@ class ExplanationDB:
         self.db = {}
         self.db_file = db_file
         self.used_keys = set()
+        self.error_found = False
 
         if not db_file:
             return
@@ -59,7 +60,8 @@ class ExplanationDB:
             key = make_key(i['desc'])
             if key in self.db:
                 logging.error(f'ExplanationDB: {i["desc"]} has duplicates in `{db_file}`')
-                exit(1)
+                self.error_found = True
+                continue
             self.db[key] = Explanation(
                 desc = i['desc'],
                 tlc = i['result']['tlc'],
@@ -73,7 +75,8 @@ class ExplanationDB:
             self.used_keys.add(key)
             if e.tlc != tlc or e.ref != ref:
                 logging.error(f'ExplanationDB: {e.desc} results ({e.tlc}, {e.ref}) are inconsistent with actual results ({tlc}, {ref}) `{self.db_file}`')
-                exit(1)
+                self.error_found = True
+                return None
         return e
 
     def report_unused_keys(self):
@@ -81,3 +84,6 @@ class ExplanationDB:
         if unused_keys:
             keys = '\n'.join([f'  {key}' for key in sorted(unused_keys)])
             logging.warning(f'ExplanationDB: {len(unused_keys)} keys are unused in `{self.db_file}`:\n{keys}')
+
+    def had_errors(self):
+        return self.error_found

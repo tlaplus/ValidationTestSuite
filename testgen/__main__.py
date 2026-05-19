@@ -251,6 +251,9 @@ def main():
     if args.html:
         generate_html(output_dir = args.output_dir)
 
+    if explanation_db.had_errors():
+        exit(1)
+
 if __name__ == '__main__':
     try:
         main()
