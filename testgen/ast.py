@@ -646,7 +646,7 @@ class StrSet:
 
     def ir(self):
         return {
-            "type": "Str",
+            "type": "Set(Str)",
             "kind": "ValEx",
             "value": {
               "kind": "TlaStrSet"
