@@ -288,11 +288,10 @@ async def run_apalache_internal(spec_dir, desc, max_concurrent_tasks=1):
 
     if b'*** Warnings:' in stdout:
         status = f'warning<{returncode}>'
-    elif b'Error parsing file' in stdout:
-        status = f'parseerror<{returncode}>'
-    elif b'meow' in stdout:
-        # Type errors, which are not signalled with exit code
-        status = f'typeerror<{returncode}>'
+    elif returncode == 150:
+        status = 'parseerror'
+    elif returncode == 120:
+        status = 'typeerror'
     elif returncode == 0:
         status = RESULT_SUCCESS
     elif returncode == 12:
