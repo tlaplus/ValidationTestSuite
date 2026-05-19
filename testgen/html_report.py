@@ -15,6 +15,7 @@
 
 import os
 import json
+import logging
 from jinja2 import Environment, FileSystemLoader
 from .spec import get_workers_options, load_spec, WORKERS_1
 from .testcasedefs import *
@@ -267,7 +268,9 @@ def generate_failed_html(env, html_dir, spec, results, toc):
             continue
 
         desc = tc['desc']
-        assert 'case_feature' in desc, "Do not expect failed test cases in SYMMETRY"
+        if 'case_feature' not in desc:
+            logging.error(f"Unexpected test case failure:\n{json.dumps(tc, indent = 2)}")
+            exit(1)
 
         # There must be no failed testcase for all workers except WORKERS_1
         assert find_workers(tc) == WORKERS_1, f"Unexpected failed test cases for '{find_workers(tc)}'"
