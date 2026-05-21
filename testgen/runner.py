@@ -387,7 +387,9 @@ def testcase_execution_report(report, explanation_db, execution_results):
 
         if tc_type == TestCaseType_RefApalache:
             if tlc == RESULT_ASSUMPTION and ref == RESULT_VIOLATION:
-                # Apalache treats ASSUME statements as invariants
+                # In equivalent Apalache test cases ASSUME statements are rewritten as
+                # invariants (see AssumeF.case_apalache). Therefore, we expect Apalache to
+                # report invariant violation, when TLC reports assumption violation.
                 verdict = 'Passed'
             elif tlc != ref or tlc not in [RESULT_SUCCESS, RESULT_VIOLATION, RESULT_DEADLOCK]:
                 verdict = 'Failed'
