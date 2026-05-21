@@ -168,45 +168,18 @@ def tlc_args(spec_dir, exec_dir, desc, coverage):
         # From SANY
         4800, # EXTENDED_MODULES_SYMBOL_UNIFICATION_AMBIGUITY
         4801, # INSTANCED_MODULES_SYMBOL_UNIFICATION_AMBIGUITY
-        # Disabled because it is not a critical warning
-        # 4802, # RECORD_CONSTRUCTOR_FIELD_NAME_CLASH
-        # Disabled because PlusCal is out of scope for qualification
-        # 4803, # PLUSCAL_ALGORITHM_AND_TRANSLATION_CHANGED_SINCE_LAST_TRANSLATION
-        # 4804, # PLUSCAL_ALGORITHM_CHANGED_SINCE_LAST_TRANSLATION
-        # 4805, # PLUSCAL_TRANSLATION_CHANGED_SINCE_LAST_TRANSLATION
         # From TLC
         1000, # GENERAL
         2142, # TLC_WRONG_RECORD_FIELD_NAME
         2141, # TLC_WRONG_TUPLE_FIELD_NAME
-        # Disabled because it can be intentional
-        # 2259, # TLC_CONFIG_NO_FAIRNESS_BUT_LIVE_PROPERTY
-        # Three warnings are commented out because they are liveness-related and out of scope for qualification
-        # 2257, # ?? TLC_CONFIG_NO_SPEC_BUT_PROPERTY
-        # 2279, # TLC_FEATURE_UNSUPPORTED_LIVENESS_SYMMETRY
-        # 2284, # ?? TLC_FEATURE_LIVENESS_CONSTRAINTS
-        # Disabled because it may be intentional
-        # 2255, # ?? TLC_LIVE_FORMULA_STATE_LEVEL
-        # Disabled because it may be intentional
-        # 2258, # TLC_LIVE_FORMULA_AND_FAIRNESS_TAUTOLOGY
-        # Disabled because it is not a critical warning
-        # 2149, # TLC_INVARIANT_CONSTANT_LEVEL
-        # Must be enabled in qualification scope
         2139, # TLC_COULD_NOT_DETERMINE_SUBSCRIPT
-        # Must be enabled in qualification scope
         2140, # TLC_SUBSCRIPT_CONTAIN_NO_STATE_VAR
         2400, # TLC_MODULE_VALUE_JAVA_METHOD_OVERRIDE_MISMATCH
         2402, # TLC_MODULE_VALUE_JAVA_METHOD_OVERRIDE_MODULE_MISMATCH
         2403, # TLC_MODULE_VALUE_JAVA_METHOD_OVERRIDE_IDENTIFIER_MISMATCH
-        # Must be enabled in qualification scope
         2143, # TLC_UNCHANGED_VARIABLE_CHANGED
         2144, # TLC_EXCEPT_APPLIED_TO_UNKNOWN_FIELD
-        # Not a critical warning
-        # 2300, # ?? TLC_SYMMETRY_SET_TOO_SMALL
         2156, # TLC_FEATURE_UNSUPPORTED
-        # Not a critical warning
-        # 2166, # ?? TLC_FP_VALUE_ALREADY_ON_DISK
-        # Not a critical warning
-        # 2126, # SYSTEM_CHECKPOINT_RECOVERY_CORRUP
     ]
 
     max_polynomial_index = 130
