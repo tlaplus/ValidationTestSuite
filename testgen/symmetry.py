@@ -40,8 +40,8 @@ SPECIFICATION
 def symmetry_cases():
     name = 'SymmetrySpec'
     symmetries = [
-        ("Permutations(U)", "SYMMETRY MessagesSymm1"),
-        (R"Permutations(U) \union Permutations(V)", "SYMMETRY MessagesSymm2"),
+        ("Permutations(U), where U is a symmetrical set of model values", "SYMMETRY MessagesSymm1"),
+        (R"Permutations(U) \union Permutations(V), where U and V are symmetrical sets of model values", "SYMMETRY MessagesSymm2"),
     ]
     invariants = [
         ("Positive", "INVARIANT InvPos"),

@@ -528,7 +528,7 @@ class TlcSymmetryCase(RefTlcCase):
                 return [prefix + '_neg']
             else:
                 return []
-        symm = ['symm1'] if self.desc['symmetry'] == 'Permutations(U)' else ['symm2']
+        symm = ['symm1'] if R'\union' not in self.desc['symmetry'] else ['symm2']
         inv = inv_prop('i', self.desc['invariant'])
         prop = inv_prop('p', self.desc['property'])
         view = ['v'] if self.desc['view'] else []
