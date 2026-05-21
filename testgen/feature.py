@@ -4211,8 +4211,7 @@ class TlcAssertF(Feature):
             "'IF cond THEN TRUE ELSE \"assert crash\" = FALSE'.")
 
     def kind(self):
-        # Assert may only be used in actions thus it accepts
-        # only action, state and const expressions
+        # Assert may only accept action, state and const expressions.
         return [Kind.Action, Kind.State, Kind.Const]
 
     def type(self):
