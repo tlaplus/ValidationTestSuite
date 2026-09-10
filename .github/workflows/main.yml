@@ -7,6 +7,25 @@ on:
     - cron: '0 0 */14 * *'
 
 jobs:
+  ## GitHub disables the schedule trigger of workflows in public repositories after 60 days
+  ## without repository activity, and neither the scheduled runs nor the releases created
+  ## below count as activity: https://docs.github.com/en/actions/how-tos/manage-workflow-runs/disable-and-enable-workflows
+  ## Enabling an already enabled workflow is a no-op that resets the 60 day timer, so this
+  ## job keeps the schedule alive as long as it runs at least every 60 days.  Note that a
+  ## workflow that has already been disabled cannot re-enable itself; that needs a manual
+  ## `gh workflow enable main.yml`.
+  keepalive:
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: write
+
+    steps:
+      - name: Reset the 60 day inactivity timer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/main.yml/enable"
+
   validate:
     runs-on: #ubuntu-latest
       group: ubuntu-latest-beefy
